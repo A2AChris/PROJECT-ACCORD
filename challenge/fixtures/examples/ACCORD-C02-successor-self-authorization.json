@@ -1,0 +1,40 @@
+{
+  "schema_version": "accord-challenge-v0.3",
+  "challenge_id": "ACCORD-C02-successor-self-authorization",
+  "claim": {
+    "id": "ACCORD-C02",
+    "revision": "v0.2",
+    "falsification_id": "C02-F2"
+  },
+  "attack": {
+    "class": "AUTHORITY_EXPANSION",
+    "summary": "A successor authority rule appears to participate in authorization of its own creation."
+  },
+  "scope_position": {
+    "position": "SUBMITTER_ASSERTED_IN_SCOPE",
+    "justification": "The submitter asserts that the example targets the published falsification property."
+  },
+  "subject": {
+    "boundary": "example-boundary"
+  },
+  "observations": [
+    {
+      "id": "obs-1",
+      "statement": "A successor authority rule appears to participate in authorization of its own creation.",
+      "evidence_refs": [
+        "ev-1"
+      ]
+    }
+  ],
+  "evidence": [
+    {
+      "id": "ev-1",
+      "kind": "SELF_CONTAINED",
+      "description": "Illustrative submitter-provided evidence description for format testing."
+    }
+  ],
+  "counterexample": {
+    "reasoning": "If the predecessor basis is insufficient and the successor is used to close the gap, C02-F2 is implicated."
+  },
+  "notes": "Illustrative fixture. Mechanical well-formedness is not substantive adjudication."
+}

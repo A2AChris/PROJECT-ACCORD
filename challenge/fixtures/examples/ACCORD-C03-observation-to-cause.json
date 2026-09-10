@@ -1,0 +1,40 @@
+{
+  "schema_version": "accord-challenge-v0.3",
+  "challenge_id": "ACCORD-C03-observation-to-cause",
+  "claim": {
+    "id": "ACCORD-C03",
+    "revision": "v0.2",
+    "falsification_id": "C03-F2"
+  },
+  "attack": {
+    "class": "BOUNDARY_COLLAPSE",
+    "summary": "Observed state is alleged to be treated as proof of causal origin."
+  },
+  "scope_position": {
+    "position": "SUBMITTER_ASSERTED_IN_SCOPE",
+    "justification": "The submitter asserts that the example targets the published falsification property."
+  },
+  "subject": {
+    "subject": "example-causal-assertion"
+  },
+  "observations": [
+    {
+      "id": "obs-1",
+      "statement": "Observed state is alleged to be treated as proof of causal origin.",
+      "evidence_refs": [
+        "ev-1"
+      ]
+    }
+  ],
+  "evidence": [
+    {
+      "id": "ev-1",
+      "kind": "SELF_CONTAINED",
+      "description": "Illustrative submitter-provided evidence description for format testing."
+    }
+  ],
+  "counterexample": {
+    "reasoning": "If no evidence appropriate to causal attribution exists beyond observation/correlation, C03-F2 is implicated."
+  },
+  "notes": "Illustrative fixture. Mechanical well-formedness is not substantive adjudication."
+}

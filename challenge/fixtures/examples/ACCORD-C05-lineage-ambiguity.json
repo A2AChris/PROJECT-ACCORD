@@ -1,0 +1,41 @@
+{
+  "schema_version": "accord-challenge-v0.3",
+  "challenge_id": "ACCORD-C05-lineage-ambiguity",
+  "claim": {
+    "id": "ACCORD-C05",
+    "revision": "v0.2",
+    "falsification_id": "C05-F4"
+  },
+  "attack": {
+    "class": "LINEAGE_AMBIGUITY",
+    "summary": "More than one material historical lineage is alleged to remain unresolved."
+  },
+  "scope_position": {
+    "position": "SUBMITTER_ASSERTED_IN_SCOPE",
+    "justification": "The submitter asserts that the example targets the published falsification property."
+  },
+  "subject": {
+    "historical_subject": "example-execution-selector",
+    "historical_cutoff": "cutoff-B"
+  },
+  "observations": [
+    {
+      "id": "obs-1",
+      "statement": "More than one material historical lineage is alleged to remain unresolved.",
+      "evidence_refs": [
+        "ev-1"
+      ]
+    }
+  ],
+  "evidence": [
+    {
+      "id": "ev-1",
+      "kind": "SELF_CONTAINED",
+      "description": "Illustrative submitter-provided evidence description for format testing."
+    }
+  ],
+  "counterexample": {
+    "reasoning": "If a positive unique-lineage assertion is still emitted, C05-F4 is implicated."
+  },
+  "notes": "Illustrative fixture. Mechanical well-formedness is not substantive adjudication."
+}

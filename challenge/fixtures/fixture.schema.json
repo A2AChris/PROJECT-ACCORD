@@ -1,0 +1,217 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:project-accord:schema:challenge:v0.3",
+  "title": "PROJECT ACCORD public challenge fixture v0.3",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "challenge_id",
+    "claim",
+    "attack",
+    "scope_position",
+    "subject",
+    "observations",
+    "evidence",
+    "counterexample"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "accord-challenge-v0.3"
+    },
+    "challenge_id": {
+      "type": "string",
+      "minLength": 3,
+      "maxLength": 128
+    },
+    "claim": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "revision",
+        "falsification_id"
+      ],
+      "properties": {
+        "id": {
+          "enum": [
+            "ACCORD-C01",
+            "ACCORD-C02",
+            "ACCORD-C03",
+            "ACCORD-C04",
+            "ACCORD-C05"
+          ]
+        },
+        "revision": {
+          "const": "v0.2"
+        },
+        "falsification_id": {
+          "type": "string",
+          "pattern": "^C0[1-5]-F[1-9][0-9]*$"
+        }
+      }
+    },
+    "attack": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "class",
+        "summary"
+      ],
+      "properties": {
+        "class": {
+          "enum": [
+            "EPISTEMIC_PROMOTION",
+            "AUTHORITY_EXPANSION",
+            "BOUNDARY_COLLAPSE",
+            "LINEAGE_AMBIGUITY",
+            "EVIDENCE_INCONSISTENCY",
+            "SCOPE_ESCAPE",
+            "SEMANTIC_OVERCLAIM",
+            "OTHER"
+          ]
+        },
+        "summary": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 8000
+        },
+        "other_class": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 256
+        }
+      }
+    },
+    "scope_position": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "position",
+        "justification"
+      ],
+      "properties": {
+        "position": {
+          "enum": [
+            "SUBMITTER_ASSERTED_IN_SCOPE",
+            "SUBMITTER_UNCERTAIN",
+            "SUBMITTER_ASSERTED_OUT_OF_SCOPE"
+          ]
+        },
+        "justification": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 8000
+        }
+      }
+    },
+    "subject": {
+      "type": "object",
+      "minProperties": 1,
+      "maxProperties": 16,
+      "additionalProperties": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 8000
+      }
+    },
+    "observations": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 100,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "statement",
+          "evidence_refs"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 3,
+            "maxLength": 128
+          },
+          "statement": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 8000
+          },
+          "evidence_refs": {
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 100,
+            "uniqueItems": true,
+            "items": {
+              "type": "string",
+              "minLength": 3,
+              "maxLength": 128
+            }
+          }
+        }
+      }
+    },
+    "evidence": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 100,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "kind",
+          "description"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 3,
+            "maxLength": 128
+          },
+          "kind": {
+            "enum": [
+              "SELF_CONTAINED",
+              "EXTERNAL_REFERENCE",
+              "ATTACHED_ARTIFACT"
+            ]
+          },
+          "description": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 8000
+          },
+          "locator": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 8000
+          },
+          "sha256": {
+            "type": "string",
+            "pattern": "^[0-9a-fA-F]{64}$"
+          }
+        }
+      }
+    },
+    "counterexample": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "reasoning"
+      ],
+      "properties": {
+        "reasoning": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 8000
+        }
+      }
+    },
+    "notes": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 8000
+    }
+  }
+}

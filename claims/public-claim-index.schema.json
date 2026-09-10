@@ -1,0 +1,203 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:project-accord:schema:public-claim-index:v0.2",
+  "title": "PROJECT ACCORD Public Claim Index v0.2",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "contract_revision",
+    "claims"
+  ],
+  "properties": {
+    "schema": {
+      "const": "accord.public-claim-index.v0.2"
+    },
+    "contract_revision": {
+      "const": "v0.2"
+    },
+    "claims": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "ACCORD-C01",
+        "ACCORD-C02",
+        "ACCORD-C03",
+        "ACCORD-C04",
+        "ACCORD-C05"
+      ],
+      "properties": {
+        "ACCORD-C01": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "revision",
+            "title",
+            "falsification_ids",
+            "public_evidence_status"
+          ],
+          "properties": {
+            "revision": {
+              "const": "v0.2"
+            },
+            "title": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 160
+            },
+            "falsification_ids": {
+              "type": "array",
+              "minItems": 1,
+              "uniqueItems": true,
+              "items": {
+                "type": "string",
+                "pattern": "^C01-F[1-9][0-9]*$"
+              }
+            },
+            "public_evidence_status": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 160
+            }
+          }
+        },
+        "ACCORD-C02": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "revision",
+            "title",
+            "falsification_ids",
+            "public_evidence_status"
+          ],
+          "properties": {
+            "revision": {
+              "const": "v0.2"
+            },
+            "title": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 160
+            },
+            "falsification_ids": {
+              "type": "array",
+              "minItems": 1,
+              "uniqueItems": true,
+              "items": {
+                "type": "string",
+                "pattern": "^C02-F[1-9][0-9]*$"
+              }
+            },
+            "public_evidence_status": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 160
+            }
+          }
+        },
+        "ACCORD-C03": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "revision",
+            "title",
+            "falsification_ids",
+            "public_evidence_status"
+          ],
+          "properties": {
+            "revision": {
+              "const": "v0.2"
+            },
+            "title": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 160
+            },
+            "falsification_ids": {
+              "type": "array",
+              "minItems": 1,
+              "uniqueItems": true,
+              "items": {
+                "type": "string",
+                "pattern": "^C03-F[1-9][0-9]*$"
+              }
+            },
+            "public_evidence_status": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 160
+            }
+          }
+        },
+        "ACCORD-C04": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "revision",
+            "title",
+            "falsification_ids",
+            "public_evidence_status"
+          ],
+          "properties": {
+            "revision": {
+              "const": "v0.2"
+            },
+            "title": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 160
+            },
+            "falsification_ids": {
+              "type": "array",
+              "minItems": 1,
+              "uniqueItems": true,
+              "items": {
+                "type": "string",
+                "pattern": "^C04-F[1-9][0-9]*$"
+              }
+            },
+            "public_evidence_status": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 160
+            }
+          }
+        },
+        "ACCORD-C05": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "revision",
+            "title",
+            "falsification_ids",
+            "public_evidence_status"
+          ],
+          "properties": {
+            "revision": {
+              "const": "v0.2"
+            },
+            "title": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 160
+            },
+            "falsification_ids": {
+              "type": "array",
+              "minItems": 1,
+              "uniqueItems": true,
+              "items": {
+                "type": "string",
+                "pattern": "^C05-F[1-9][0-9]*$"
+              }
+            },
+            "public_evidence_status": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 160
+            }
+          }
+        }
+      }
+    }
+  }
+}

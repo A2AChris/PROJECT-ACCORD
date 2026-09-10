@@ -1,0 +1,41 @@
+{
+  "schema_version": "accord-challenge-v0.3",
+  "challenge_id": "ACCORD-CHALLENGE-EXAMPLE",
+  "claim": {
+    "id": "ACCORD-C05",
+    "revision": "v0.2",
+    "falsification_id": "C05-F1"
+  },
+  "attack": {
+    "class": "OTHER",
+    "summary": "Describe the alleged public failure.",
+    "other_class": "short descriptive label"
+  },
+  "scope_position": {
+    "position": "SUBMITTER_UNCERTAIN",
+    "justification": "Explain the submitter's scope position."
+  },
+  "subject": {
+    "historical_subject": "public-selector",
+    "historical_cutoff": "declared-cutoff"
+  },
+  "observations": [
+    {
+      "id": "obs-1",
+      "statement": "Submitter-asserted observation.",
+      "evidence_refs": [
+        "ev-1"
+      ]
+    }
+  ],
+  "evidence": [
+    {
+      "id": "ev-1",
+      "kind": "SELF_CONTAINED",
+      "description": "Minimal evidence description."
+    }
+  ],
+  "counterexample": {
+    "reasoning": "Explain why the cited evidence allegedly satisfies the selected falsification ID."
+  }
+}

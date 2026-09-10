@@ -1,0 +1,100 @@
+{
+  "schema": "accord.public-evidence-record.v0.3",
+  "record_id": "ACCORD-EVIDENCE-RM01-v0.3",
+  "project": "PROJECT ACCORD",
+  "public_reference": {
+    "alias": "ACCORD-RM01",
+    "status": "PROVISIONALLY_FROZEN",
+    "private_reference_commitment": {
+      "algorithm": "SHA-256",
+      "domain": "PROJECT-ACCORD-PRIVATE-REFERENCE-v1",
+      "commitment": "137e449c0329de088ec0eef662ee50ef20ca45ad24c83219552e9fad2a90e323",
+      "qualification": "This is an opaque commitment to privately retained reference-binding material. The private reference identifier and opening value are intentionally not public."
+    }
+  },
+  "claim_binding": {
+    "evidenced_public_claim": {
+      "id": "ACCORD-C05",
+      "revision": "v0.2"
+    },
+    "semantic_dependencies_not_independently_evidenced": [
+      {
+        "id": "ACCORD-C03",
+        "revision": "v0.2"
+      },
+      {
+        "id": "ACCORD-C04",
+        "revision": "v0.2"
+      }
+    ],
+    "scope_statement": "This record is project-attested reference evidence for ACCORD-C05 v0.2 only. The listed semantic dependencies constrain interpretation of C05 but are not independently evidenced by this record."
+  },
+  "evidence_classification": {
+    "reference_evidence_level": "R0_PROJECT_ATTESTED",
+    "public_challenge_level": "NOT_YET_PUBLISHED",
+    "public_reproduction_level": "NOT_CLAIMED",
+    "qualification": "The underlying reference implementation and detailed CI evidence remain private. This sanitized record is a project attestation, not independent public reproduction."
+  },
+  "ci_summary": {
+    "classification": "PROJECT_ATTESTED",
+    "profiles": [
+      {
+        "environment_family": "Linux",
+        "runtime_family": "Python 3.12",
+        "passed": 901,
+        "total": 901
+      },
+      {
+        "environment_family": "Windows",
+        "runtime_family": "Python 3.12",
+        "passed": 901,
+        "total": 901
+      },
+      {
+        "environment_family": "Windows",
+        "runtime_family": "Python 3.13",
+        "passed": 901,
+        "total": 901
+      }
+    ],
+    "qualification": "Provider-specific run identifiers, job identifiers, runner labels, timestamps, exact runtime patch versions, repository identifiers, and raw logs are intentionally withheld."
+  },
+  "finding_status_at_reference_freeze": {
+    "classification": "PROJECT_ATTESTED",
+    "scope": "bounded private reference claim scope only",
+    "known_confirmed_open_findings": {
+      "P0": 0,
+      "P1": 0
+    },
+    "qualification": "Zero known confirmed open P0/P1 findings does not establish absence of unknown defects, formal correctness, production readiness, or universal safety."
+  },
+  "supported_statements": [
+    "The project privately retains binding material for ACCORD-RM01 that opens the published commitment.",
+    "The project attests that each listed CI profile passed 901 of 901 tests for the privately bound C05 reference profile.",
+    "The project attests that no confirmed open P0/P1 findings were known within the bounded C05 reference claim scope at freeze time."
+  ],
+  "forbidden_inferences": [
+    "The private reference implementation is publicly reproducible.",
+    "The private reference identifier can be derived from this record.",
+    "The private CI provider or provider-specific run can be independently inspected from this record.",
+    "This record independently evidences ACCORD-C03 or ACCORD-C04 as general claims.",
+    "The reference implementation is formally verified.",
+    "The reference implementation is production-ready.",
+    "All defects are known or absent.",
+    "A committed execution caused an external real-world effect.",
+    "Historical reconstruction establishes present authority.",
+    "Successful project-attested CI proves ACCORD-C05 universally."
+  ],
+  "withheld_material": [
+    "private repository and engineering identifiers",
+    "raw private CI and version-control material",
+    "private tests and adversarial research material",
+    "private identity and data representation",
+    "private implementation and assurance design",
+    "unrelated private metadata"
+  ],
+  "integrity": {
+    "record_canonicalization": "UTF-8 JSON, sorted keys, separators=(',', ':'), digest field null during hashing",
+    "record_sha256": "7bd692aae074def951d8e32e6dfaa0da649ed9f529e0809b1eb63cd86b3dc272"
+  }
+}

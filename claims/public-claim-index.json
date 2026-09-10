@@ -1,0 +1,64 @@
+{
+  "schema": "accord.public-claim-index.v0.2",
+  "contract_revision": "v0.2",
+  "claims": {
+    "ACCORD-C01": {
+      "revision": "v0.2",
+      "title": "Epistemic and Authority Separation",
+      "falsification_ids": [
+        "C01-F1",
+        "C01-F2"
+      ],
+      "public_evidence_status": "NO_CLAIM_SPECIFIC_PUBLIC_REFERENCE_EVIDENCE_ATTACHED"
+    },
+    "ACCORD-C02": {
+      "revision": "v0.2",
+      "title": "Rooted and Conserved Authority",
+      "falsification_ids": [
+        "C02-F1",
+        "C02-F2",
+        "C02-F3"
+      ],
+      "public_evidence_status": "NO_CLAIM_SPECIFIC_PUBLIC_REFERENCE_EVIDENCE_ATTACHED"
+    },
+    "ACCORD-C03": {
+      "revision": "v0.2",
+      "title": "Authorization / Execution / Effect Separation",
+      "falsification_ids": [
+        "C03-F1",
+        "C03-F2",
+        "C03-F3",
+        "C03-F4"
+      ],
+      "public_evidence_status": "SEMANTIC_DEPENDENCY_OF_RM01_NOT_INDEPENDENTLY_EVIDENCED_BY_RM01"
+    },
+    "ACCORD-C04": {
+      "revision": "v0.2",
+      "title": "Bounded Historical Reconstruction Discipline",
+      "falsification_ids": [
+        "C04-F1",
+        "C04-F2",
+        "C04-F3",
+        "C04-F4",
+        "C04-F5",
+        "C04-F6"
+      ],
+      "public_evidence_status": "SEMANTIC_DEPENDENCY_OF_RM01_NOT_INDEPENDENTLY_EVIDENCED_BY_RM01"
+    },
+    "ACCORD-C05": {
+      "revision": "v0.2",
+      "title": "Bounded Historical Execution Lineage",
+      "falsification_ids": [
+        "C05-F1",
+        "C05-F2",
+        "C05-F3",
+        "C05-F4",
+        "C05-F5",
+        "C05-F6",
+        "C05-F7",
+        "C05-F8"
+      ],
+      "public_evidence_status": "R0_PROJECT_ATTESTED_VIA_ACCORD_RM01"
+    }
+  }
+}

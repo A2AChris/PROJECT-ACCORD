@@ -1,0 +1,22 @@
+# Generated Python artifacts
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Local environments and editor state
+.venv/
+venv/
+.env
+.env.*
+.vscode/
+.idea/
+
+# OS metadata
+.DS_Store
+Thumbs.db
+
+# Local/private review artifacts must never be copied into the public candidate
+P7-PRIVATE-*
+PRIVATE-*

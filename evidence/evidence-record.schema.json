@@ -1,0 +1,307 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:project-accord:schema:public-evidence-record:v0.3",
+  "title": "PROJECT ACCORD Public Evidence Record v0.3",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "record_id",
+    "project",
+    "public_reference",
+    "claim_binding",
+    "evidence_classification",
+    "ci_summary",
+    "finding_status_at_reference_freeze",
+    "supported_statements",
+    "forbidden_inferences",
+    "withheld_material",
+    "integrity"
+  ],
+  "properties": {
+    "schema": {
+      "const": "accord.public-evidence-record.v0.3"
+    },
+    "record_id": {
+      "type": "string",
+      "pattern": "^ACCORD-EVIDENCE-[A-Za-z0-9.-]+$"
+    },
+    "project": {
+      "const": "PROJECT ACCORD"
+    },
+    "public_reference": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "alias",
+        "status",
+        "private_reference_commitment"
+      ],
+      "properties": {
+        "alias": {
+          "pattern": "^ACCORD-RM[0-9]{2}$"
+        },
+        "status": {
+          "enum": [
+            "PROVISIONALLY_FROZEN",
+            "FROZEN",
+            "SUPERSEDED",
+            "REVOKED"
+          ]
+        },
+        "private_reference_commitment": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "algorithm",
+            "domain",
+            "commitment",
+            "qualification"
+          ],
+          "properties": {
+            "algorithm": {
+              "const": "SHA-256"
+            },
+            "domain": {
+              "const": "PROJECT-ACCORD-PRIVATE-REFERENCE-v1"
+            },
+            "commitment": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            "qualification": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 2000
+            }
+          }
+        }
+      }
+    },
+    "claim_binding": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "evidenced_public_claim",
+        "semantic_dependencies_not_independently_evidenced",
+        "scope_statement"
+      ],
+      "properties": {
+        "evidenced_public_claim": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "id",
+            "revision"
+          ],
+          "properties": {
+            "id": {
+              "const": "ACCORD-C05"
+            },
+            "revision": {
+              "const": "v0.2"
+            }
+          }
+        },
+        "semantic_dependencies_not_independently_evidenced": {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 2,
+          "uniqueItems": true,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "id",
+              "revision"
+            ],
+            "properties": {
+              "id": {
+                "enum": [
+                  "ACCORD-C03",
+                  "ACCORD-C04"
+                ]
+              },
+              "revision": {
+                "const": "v0.2"
+              }
+            }
+          }
+        },
+        "scope_statement": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 1600
+        }
+      }
+    },
+    "evidence_classification": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "reference_evidence_level",
+        "public_challenge_level",
+        "public_reproduction_level",
+        "qualification"
+      ],
+      "properties": {
+        "reference_evidence_level": {
+          "const": "R0_PROJECT_ATTESTED"
+        },
+        "public_challenge_level": {
+          "enum": [
+            "NOT_YET_PUBLISHED",
+            "R1_PUBLICLY_CHALLENGEABLE"
+          ]
+        },
+        "public_reproduction_level": {
+          "const": "NOT_CLAIMED"
+        },
+        "qualification": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 2000
+        }
+      }
+    },
+    "ci_summary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "classification",
+        "profiles",
+        "qualification"
+      ],
+      "properties": {
+        "classification": {
+          "const": "PROJECT_ATTESTED"
+        },
+        "profiles": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 20,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "environment_family",
+              "runtime_family",
+              "passed",
+              "total"
+            ],
+            "properties": {
+              "environment_family": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 80
+              },
+              "runtime_family": {
+                "type": "string",
+                "pattern": "^Python [0-9]+\\.[0-9]+$"
+              },
+              "passed": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "total": {
+                "type": "integer",
+                "minimum": 1
+              }
+            }
+          }
+        },
+        "qualification": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 2000
+        }
+      }
+    },
+    "finding_status_at_reference_freeze": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "classification",
+        "scope",
+        "known_confirmed_open_findings",
+        "qualification"
+      ],
+      "properties": {
+        "classification": {
+          "const": "PROJECT_ATTESTED"
+        },
+        "scope": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 500
+        },
+        "known_confirmed_open_findings": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "P0",
+            "P1"
+          ],
+          "properties": {
+            "P0": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "P1": {
+              "type": "integer",
+              "minimum": 0
+            }
+          }
+        },
+        "qualification": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 2000
+        }
+      }
+    },
+    "supported_statements": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "forbidden_inferences": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "withheld_material": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "integrity": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "record_canonicalization",
+        "record_sha256"
+      ],
+      "properties": {
+        "record_canonicalization": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 500
+        },
+        "record_sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        }
+      }
+    }
+  }
+}
