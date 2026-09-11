@@ -11,7 +11,7 @@ spec = importlib.util.spec_from_file_location("verify_record", EV / "verify_reco
 vr = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(vr)
 
-RECORD = json.loads((EV / "ACCORD-RM01-REFERENCE-EVIDENCE-v0.3.json").read_text(encoding="utf-8"))
+RECORD = json.loads((EV / "ACCORD-RM01-REFERENCE-EVIDENCE-v0.4.json").read_text(encoding="utf-8"))
 
 
 def resign(obj):
@@ -49,6 +49,14 @@ class EvidenceRecordP8Tests(unittest.TestCase):
         )
         self.assertIn(
             "This record independently evidences ACCORD-C03 or ACCORD-C04 as general claims.",
+            RECORD["forbidden_inferences"],
+        )
+
+    def test_ci_profile_disclosure_is_explicitly_non_exhaustive(self):
+        qualification = RECORD["ci_summary"]["qualification"]
+        self.assertIn("not an exhaustive inventory", qualification)
+        self.assertIn(
+            "The listed CI profiles are a complete inventory of private CI coverage or map one-for-one to the public validation matrix.",
             RECORD["forbidden_inferences"],
         )
 

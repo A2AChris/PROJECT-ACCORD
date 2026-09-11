@@ -4,7 +4,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 INDEX = json.loads((ROOT / "claims" / "public-claim-index.json").read_text(encoding="utf-8"))
-EVIDENCE = json.loads((ROOT / "evidence" / "ACCORD-RM01-REFERENCE-EVIDENCE-v0.3.json").read_text(encoding="utf-8"))
+EVIDENCE = json.loads((ROOT / "evidence" / "ACCORD-RM01-REFERENCE-EVIDENCE-v0.4.json").read_text(encoding="utf-8"))
 README = (ROOT / "README.md").read_text(encoding="utf-8")
 
 

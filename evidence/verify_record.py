@@ -106,7 +106,7 @@ def validate_record(record: dict) -> None:
 
 def main(argv=None) -> int:
     argv = list(sys.argv[1:] if argv is None else argv)
-    path = Path(argv[0]) if argv else Path(__file__).with_name("ACCORD-RM01-REFERENCE-EVIDENCE-v0.3.json")
+    path = Path(argv[0]) if argv else Path(__file__).with_name("ACCORD-RM01-REFERENCE-EVIDENCE-v0.4.json")
     try:
         record = load_record(path)
         validate_record(record)

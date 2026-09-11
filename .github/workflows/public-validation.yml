@@ -46,4 +46,4 @@ jobs:
         run: python -VV
 
       - name: Validate public candidate
-        run: python -S tools/run_public_validation.py
+        run: python -B -S tools/run_public_validation.py

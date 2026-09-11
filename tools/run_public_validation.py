@@ -15,6 +15,8 @@ import subprocess
 import sys
 from pathlib import Path
 
+from public_schema import SchemaContractError, validate_paths
+
 ROOT = Path(__file__).resolve().parent.parent
 GENERATED_DIRS = {"__pycache__", ".pytest_cache", ".git"}
 
@@ -97,6 +99,29 @@ def verify_text_and_json() -> None:
                 fail(f"invalid JSON: {rel}: {exc}")
 
 
+
+def verify_schema_contracts() -> int:
+    claim_schema = ROOT / "claims" / "public-claim-index.schema.json"
+    challenge_schema = ROOT / "challenge" / "fixtures" / "fixture.schema.json"
+    evidence_schema = ROOT / "evidence" / "evidence-record.schema.json"
+
+    targets = [
+        (ROOT / "claims" / "public-claim-index.json", claim_schema),
+        (ROOT / "challenge" / "fixtures" / "template.json", challenge_schema),
+        (ROOT / "evidence" / "ACCORD-RM01-REFERENCE-EVIDENCE-v0.4.json", evidence_schema),
+    ]
+    targets.extend(
+        (fixture, challenge_schema)
+        for fixture in sorted((ROOT / "challenge" / "fixtures" / "examples").glob("*.json"))
+    )
+
+    for instance_path, schema_path in targets:
+        try:
+            validate_paths(instance_path, schema_path)
+        except SchemaContractError as exc:
+            fail(f"schema contract failed for {instance_path.relative_to(ROOT).as_posix()}: {exc}")
+    return len(targets)
+
 def run_command(args: list[str], cwd: Path = ROOT) -> str:
     env = os.environ.copy()
     env["PYTHONDONTWRITEBYTECODE"] = "1"
@@ -162,10 +187,12 @@ def main() -> int:
     verify_manifest(evidence_base, evidence_manifest, evidence_expected)
 
     verify_text_and_json()
+    schema_documents = verify_schema_contracts()
 
     claim_tests = run_unittest_suite("tests")
     challenge_tests = run_unittest_suite("challenge/tests")
     evidence_tests = run_unittest_suite("evidence/tests")
+    schema_tests = run_unittest_suite("schema/tests")
     example_count = verify_challenge_examples()
 
     self_check = run_command(
@@ -177,14 +204,16 @@ def main() -> int:
     if "REFERENCE_VERIFICATION=NOT_PERFORMED" not in self_check:
         fail("public evidence self-check exceeded its declared boundary")
 
-    total_tests = claim_tests + challenge_tests + evidence_tests
+    total_tests = claim_tests + challenge_tests + evidence_tests + schema_tests
     print(f"PUBLIC_VALIDATION=PASS")
     print(f"PYTHON={platform.python_version()}")
     print(f"PLATFORM={platform.system()}")
     print(f"CLAIM_TESTS={claim_tests}")
     print(f"CHALLENGE_TESTS={challenge_tests}")
     print(f"EVIDENCE_TESTS={evidence_tests}")
+    print(f"SCHEMA_TESTS={schema_tests}")
     print(f"TOTAL_UNIT_TESTS={total_tests}")
+    print(f"SCHEMA_DOCUMENTS={schema_documents}")
     print(f"CHALLENGE_EXAMPLES={example_count}")
     print("PRIVATE_REFERENCE_VERIFICATION=NOT_PERFORMED")
     return 0
