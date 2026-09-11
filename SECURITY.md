@@ -44,15 +44,22 @@ public artifact if it contains:
 
 ## Confidential reporting channel
 
-A verified confidential reporting channel is a **publication requirement** and has not
-yet been declared by this candidate document.
+Security-sensitive reports may be sent confidentially to:
 
-Before PROJECT ACCORD is made public, the maintainers must verify and publish one
-confidential reporting path, preferably repository-native private vulnerability
-reporting where available.
+**project_accord@proton.me**
 
-Until that gate is closed, this candidate must not be represented as having a complete
-public vulnerability-reporting process.
+Use this address instead of a public issue, fixture, pull request, or discussion when a
+report contains sensitive material or would create avoidable harm if disclosed before
+review.
+
+GitHub repository-native private vulnerability reporting is intended as an additional
+channel once the repository is public and GitHub makes that facility available for the
+repository. The email channel above remains valid independently of that platform
+feature.
+
+Do not include credentials, unrelated personal data, bulk private datasets, or material
+obtained through unauthorized access merely to demonstrate a report. Minimize sensitive
+content to what is necessary to reproduce and evaluate the issue.
 
 ## Scope and authority
 

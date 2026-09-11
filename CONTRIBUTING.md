@@ -22,13 +22,24 @@ Do not infer private architecture from public challenge vocabulary.
 
 General external code and documentation contributions are **not yet open**.
 
-The current candidate intentionally has no selected `LICENSE` and no finalized external
-contribution terms. Until those terms are resolved and explicitly published, do not
-submit implementation code, documentation rewrites, or pull requests intended for
-incorporation into the repository.
+The repository license is Apache License 2.0 (`Apache-2.0`); see [`LICENSE`](LICENSE) and
+[`LICENSE-SCOPE.md`](LICENSE-SCOPE.md). The license covers this repository's public-surface
+files only and does not place separate private or unpublished PROJECT ACCORD material
+under Apache-2.0.
 
-This restriction prevents ambiguous ownership or licensing from being created before the
-IP/publication gate is complete.
+General external code and documentation contributions are still closed. Do not submit
+implementation code, documentation rewrites, or pull requests intended for incorporation
+into the repository unless PROJECT ACCORD explicitly opens that contribution path.
+
+Security reports and research challenges submitted through those review channels are
+designated **Not a Contribution** for purposes of Apache-2.0 unless the copyright owner
+separately and explicitly submits the material for inclusion in the Work. If contribution
+intake is later explicitly opened, a Contribution intentionally submitted for inclusion in
+the Work is governed by Apache-2.0 Section 5 unless a separate written agreement expressly
+states otherwise.
+
+This restriction prevents ambiguous ownership, incorporation, or licensing from being
+created before a contribution path is deliberately opened.
 
 ## Counterexamples and research challenges
 
@@ -133,14 +144,16 @@ consensus.
 
 ## Before public release
 
-The following remain publication prerequisites:
+The following remain publication prerequisites after the licensing and confidential
+security-reporting gates are closed:
 
-- final contribution/licensing terms;
-- a verified confidential security-reporting channel;
 - IP red-team review;
 - claim red-team review;
 - repository history and secret scan; and
 - publication-candidate freeze on an exact committed revision.
 
-Until those gates are closed, this file describes the intended contribution model rather
-than an open invitation to contribute.
+The confidential security-reporting path is declared in [`SECURITY.md`](SECURITY.md) and
+is not an open contribution channel.
+
+Until the remaining gates are closed, this file describes the intended contribution
+model rather than an open invitation to contribute.

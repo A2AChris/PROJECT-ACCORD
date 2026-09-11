@@ -157,10 +157,17 @@ PROJECT-ACCORD/
 └── tests/
 ```
 
-A `LICENSE` has not yet been selected. General external code/document contributions are
-not open until licensing and contribution terms are resolved.
+The public-surface repository is licensed under the Apache License 2.0 (`Apache-2.0`).
+The license applies to the files in this repository; separate private or unpublished
+PROJECT ACCORD material is outside that licensed Work unless expressly distributed under
+Apache-2.0 or another stated license. See [`LICENSE`](LICENSE) and
+[`LICENSE-SCOPE.md`](LICENSE-SCOPE.md).
 
-A verified confidential security-reporting channel also remains a release prerequisite.
+General external code/document contributions remain closed until explicitly opened under
+the contribution rules in [`CONTRIBUTING.md`](CONTRIBUTING.md).
+
+Confidential security reports may be sent to `project_accord@proton.me`. Repository-native
+private vulnerability reporting is intended as an additional channel after public release.
 
 ---
 
@@ -310,8 +317,15 @@ PROJECT-ACCORD/
 └── tests/
 ```
 
-Eine `LICENSE` wurde noch nicht gewählt. Allgemeine externe Code-/Dokument-Contributions
-bleiben geschlossen, bis Lizenz- und Contribution-Bedingungen geklärt sind.
+Das Public-Surface-Repository steht unter der Apache License 2.0 (`Apache-2.0`). Die
+Lizenz gilt für die Dateien dieses Repositories; getrennte private oder unveröffentlichte
+PROJECT-ACCORD-Materialien gehören nicht zum lizenzierten Work, sofern sie nicht
+ausdrücklich unter Apache-2.0 oder einer anderen angegebenen Lizenz verteilt werden.
+Siehe [`LICENSE`](LICENSE) und [`LICENSE-SCOPE.md`](LICENSE-SCOPE.md).
 
-Ein verifizierter vertraulicher Security-Reporting-Kanal bleibt ebenfalls
-Release-Voraussetzung.
+Allgemeine externe Code-/Dokument-Contributions bleiben geschlossen, bis sie nach den
+Regeln in [`CONTRIBUTING.md`](CONTRIBUTING.md) ausdrücklich geöffnet werden.
+
+Vertrauliche Security-Reports können an `project_accord@proton.me` gesendet werden.
+Repository-natives Private Vulnerability Reporting ist nach dem Public Release als
+zusätzlicher Kanal vorgesehen.
