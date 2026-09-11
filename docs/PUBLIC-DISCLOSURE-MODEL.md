@@ -1,6 +1,6 @@
 # PROJECT ACCORD — Public Disclosure Model
 
-**Status:** Publication candidate
+**Status:** Public-surface disclosure contract
 **Revision:** v0.3 hardened through P8 claim red team
 
 ## Purpose

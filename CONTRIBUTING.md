@@ -1,6 +1,6 @@
 # Contributing to PROJECT ACCORD
 
-**Status:** Publication candidate
+**Status:** Public-surface contribution policy
 
 PROJECT ACCORD is designed to accept scrutiny before it accepts trust.
 
@@ -142,10 +142,9 @@ PROJECT ACCORD reviews should distinguish:
 Agreement is not the goal. Reproducible falsification is more valuable than rhetorical
 consensus.
 
-## Before public release
+## Publication governance
 
-The following remain publication prerequisites after the licensing and confidential
-security-reporting gates are closed:
+Publication of this public surface is governed by the following release requirements:
 
 - IP red-team review;
 - claim red-team review;
@@ -155,5 +154,6 @@ security-reporting gates are closed:
 The confidential security-reporting path is declared in [`SECURITY.md`](SECURITY.md) and
 is not an open contribution channel.
 
-Until the remaining gates are closed, this file describes the intended contribution
-model rather than an open invitation to contribute.
+These release requirements do not open general external contribution intake. General
+external code and documentation contributions remain closed until PROJECT ACCORD
+explicitly opens that path.

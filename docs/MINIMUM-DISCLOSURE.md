@@ -1,6 +1,6 @@
 # PROJECT ACCORD — Minimum Disclosure Contract
 
-**Status:** Publication candidate
+**Status:** Public-surface disclosure contract
 **Revision:** v0.3 hardened through P8 claim red team
 
 ## Minimum public record

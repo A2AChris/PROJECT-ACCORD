@@ -1,6 +1,6 @@
 # PROJECT ACCORD — Public Claims
 
-**Status:** Publication candidate
+**Status:** Public-surface claim contract
 **Public contract revision:** `v0.2`
 
 This document is the normative public prose contract for PROJECT ACCORD claims.

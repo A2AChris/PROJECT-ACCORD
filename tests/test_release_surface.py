@@ -8,6 +8,10 @@ SECURITY = (ROOT / "SECURITY.md").read_text(encoding="utf-8")
 README = (ROOT / "README.md").read_text(encoding="utf-8")
 CONTRIBUTING = (ROOT / "CONTRIBUTING.md").read_text(encoding="utf-8")
 LICENSE_SCOPE = (ROOT / "LICENSE-SCOPE.md").read_text(encoding="utf-8")
+CLAIMS = (ROOT / "CLAIMS.md").read_text(encoding="utf-8")
+ATTACK_CONTRACT = (ROOT / "challenge" / "ATTACK-CONTRACT.md").read_text(encoding="utf-8")
+PUBLIC_DISCLOSURE = (ROOT / "docs" / "PUBLIC-DISCLOSURE-MODEL.md").read_text(encoding="utf-8")
+MINIMUM_DISCLOSURE = (ROOT / "docs" / "MINIMUM-DISCLOSURE.md").read_text(encoding="utf-8")
 
 APACHE_2_0_SHA256 = "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
 
@@ -27,8 +31,8 @@ class ReleaseSurfaceTests(unittest.TestCase):
         self.assertNotIn("has not\nyet been declared", SECURITY)
         self.assertNotIn("Until that gate is closed", SECURITY)
 
-    def test_security_reporting_is_not_listed_as_remaining_prerequisite(self):
-        marker = "The following remain publication prerequisites"
+    def test_security_reporting_is_not_listed_as_release_requirement(self):
+        marker = "Publication of this public surface is governed by the following release requirements:"
         tail = CONTRIBUTING.split(marker, 1)[1]
         self.assertNotIn("verified confidential security-reporting channel", tail)
 
@@ -62,12 +66,32 @@ class ReleaseSurfaceTests(unittest.TestCase):
         self.assertIn("explicitly submits the material for inclusion in the Work", CONTRIBUTING)
         self.assertIn("Apache-2.0 Section 5", CONTRIBUTING)
 
-    def test_license_is_no_longer_a_remaining_publication_prerequisite(self):
-        marker = "The following remain publication prerequisites"
+    def test_license_is_no_longer_a_release_requirement(self):
+        marker = "Publication of this public surface is governed by the following release requirements:"
         tail = CONTRIBUTING.split(marker, 1)[1]
         self.assertNotIn("final contribution/licensing terms", tail)
         self.assertIn("IP red-team review", tail)
         self.assertIn("claim red-team review", tail)
+
+    def test_release_surface_status_labels_are_publication_state_neutral(self):
+        surfaces = {
+            "CLAIMS.md": CLAIMS,
+            "SECURITY.md": SECURITY,
+            "CONTRIBUTING.md": CONTRIBUTING,
+            "challenge/ATTACK-CONTRACT.md": ATTACK_CONTRACT,
+            "docs/PUBLIC-DISCLOSURE-MODEL.md": PUBLIC_DISCLOSURE,
+            "docs/MINIMUM-DISCLOSURE.md": MINIMUM_DISCLOSURE,
+        }
+        for name, text in surfaces.items():
+            with self.subTest(name=name):
+                self.assertNotIn("**Status:** Publication candidate", text)
+                self.assertIn("**Status:** Public-surface", text)
+
+    def test_contribution_policy_has_no_pre_publication_transition_language(self):
+        self.assertNotIn("## Before public release", CONTRIBUTING)
+        self.assertNotIn("Until the remaining gates are closed", CONTRIBUTING)
+        self.assertIn("## Publication governance", CONTRIBUTING)
+        self.assertIn("remain closed until PROJECT ACCORD", CONTRIBUTING)
 
 
 if __name__ == "__main__":

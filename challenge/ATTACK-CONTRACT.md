@@ -1,6 +1,6 @@
 # PROJECT ACCORD — Public Challenge Contract
 
-**Status:** Publication candidate
+**Status:** Public-surface challenge contract
 **Revision:** `v0.3`
 
 ## Purpose

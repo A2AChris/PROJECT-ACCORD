@@ -1,6 +1,6 @@
 # Security Policy
 
-**Status:** Publication candidate
+**Status:** Public-surface security policy
 **Applies to:** PROJECT ACCORD public claim, challenge, and evidence surfaces
 
 This policy is intentionally scoped to material published in the PROJECT ACCORD public
