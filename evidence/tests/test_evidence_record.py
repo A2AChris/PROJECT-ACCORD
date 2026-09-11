@@ -11,7 +11,7 @@ spec = importlib.util.spec_from_file_location("verify_record", EV / "verify_reco
 vr = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(vr)
 
-RECORD = json.loads((EV / "ACCORD-RM01-REFERENCE-EVIDENCE-v0.4.json").read_text(encoding="utf-8"))
+RECORD = json.loads((EV / "ACCORD-RM01-REFERENCE-EVIDENCE-v0.5.json").read_text(encoding="utf-8"))
 
 
 def resign(obj):
@@ -57,6 +57,19 @@ class EvidenceRecordP8Tests(unittest.TestCase):
         self.assertIn("not an exhaustive inventory", qualification)
         self.assertIn(
             "The listed CI profiles are a complete inventory of private CI coverage or map one-for-one to the public validation matrix.",
+            RECORD["forbidden_inferences"],
+        )
+
+    def test_public_challenge_contract_does_not_attest_visibility(self):
+        classification = RECORD["evidence_classification"]
+        self.assertEqual(
+            classification["public_challenge_contract"],
+            "STRUCTURED_COUNTEREXAMPLE_SURFACE_PRESENT",
+        )
+        self.assertNotIn("public_challenge_level", classification)
+        self.assertIn("does not attest current repository visibility", classification["qualification"])
+        self.assertIn(
+            "This record alone establishes that the repository is currently public or that R1 is presently in effect.",
             RECORD["forbidden_inferences"],
         )
 

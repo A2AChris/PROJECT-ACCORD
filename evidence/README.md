@@ -10,6 +10,12 @@ Evidence level: **R0 — PROJECT-ATTESTED**
 
 The current record is attached to **ACCORD-C05 v0.2 only**.
 
+## Challenge availability
+
+The record attests that the structured challenge contract is present in the public-surface
+artifact. It does not attest current repository visibility. **R1 — PUBLICLY CHALLENGEABLE**
+applies only while that surface is actually publicly accessible.
+
 C05 depends semantically on C03 and C04, but that dependency does not make the RM01
 record independent evidence for C03 or C04 as general claims.
 

@@ -13,6 +13,12 @@ APACHE_2_0_SHA256 = "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc5
 
 
 class ReleaseSurfaceTests(unittest.TestCase):
+    def test_publication_status_is_visibility_neutral(self):
+        self.assertIn("Repository visibility is controlled separately from this content.", README)
+        self.assertNotIn("Not yet released", README)
+        self.assertNotIn("currently private", README.lower())
+        self.assertNotIn("currently public", README.lower())
+
     def test_confidential_security_contact_is_declared(self):
         self.assertIn("project_accord@proton.me", SECURITY)
         self.assertIn("project_accord@proton.me", README)

@@ -108,7 +108,7 @@ def verify_schema_contracts() -> int:
     targets = [
         (ROOT / "claims" / "public-claim-index.json", claim_schema),
         (ROOT / "challenge" / "fixtures" / "template.json", challenge_schema),
-        (ROOT / "evidence" / "ACCORD-RM01-REFERENCE-EVIDENCE-v0.4.json", evidence_schema),
+        (ROOT / "evidence" / "ACCORD-RM01-REFERENCE-EVIDENCE-v0.5.json", evidence_schema),
     ]
     targets.extend(
         (fixture, challenge_schema)

@@ -4,7 +4,7 @@
 
 [English](#english) · [Deutsch](#deutsch)
 
-> **Publication status:** Claim-hardened publication candidate. Not yet released.
+> **Publication status:** Claim-hardened public-surface artifact. Repository visibility is controlled separately from this content.
 
 This README is descriptive and non-normative. Public claim meaning is governed by
 [`CLAIMS.md`](CLAIMS.md). Claim IDs, revisions, falsification IDs, and public evidence

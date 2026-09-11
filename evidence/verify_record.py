@@ -44,7 +44,7 @@ def canonical_digest(record: dict) -> str:
 
 
 def validate_record(record: dict) -> None:
-    if record.get("schema") != "accord.public-evidence-record.v0.3":
+    if record.get("schema") != "accord.public-evidence-record.v0.4":
         raise RecordError("unsupported schema")
     if record.get("project") != "PROJECT ACCORD":
         raise RecordError("unexpected project")
@@ -69,6 +69,8 @@ def validate_record(record: dict) -> None:
 
     if classification.get("reference_evidence_level") != "R0_PROJECT_ATTESTED":
         raise RecordError("unexpected reference evidence level")
+    if classification.get("public_challenge_contract") != "STRUCTURED_COUNTEREXAMPLE_SURFACE_PRESENT":
+        raise RecordError("unexpected public challenge contract classification")
     if classification.get("public_reproduction_level") != "NOT_CLAIMED":
         raise RecordError("public reproduction must not be implied")
 
@@ -106,7 +108,7 @@ def validate_record(record: dict) -> None:
 
 def main(argv=None) -> int:
     argv = list(sys.argv[1:] if argv is None else argv)
-    path = Path(argv[0]) if argv else Path(__file__).with_name("ACCORD-RM01-REFERENCE-EVIDENCE-v0.4.json")
+    path = Path(argv[0]) if argv else Path(__file__).with_name("ACCORD-RM01-REFERENCE-EVIDENCE-v0.5.json")
     try:
         record = load_record(path)
         validate_record(record)

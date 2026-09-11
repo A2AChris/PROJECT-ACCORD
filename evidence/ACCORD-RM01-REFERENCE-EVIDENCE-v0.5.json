@@ -1,6 +1,6 @@
 {
-  "schema": "accord.public-evidence-record.v0.3",
-  "record_id": "ACCORD-EVIDENCE-RM01-v0.4",
+  "schema": "accord.public-evidence-record.v0.4",
+  "record_id": "ACCORD-EVIDENCE-RM01-v0.5",
   "project": "PROJECT ACCORD",
   "public_reference": {
     "alias": "ACCORD-RM01",
@@ -31,9 +31,9 @@
   },
   "evidence_classification": {
     "reference_evidence_level": "R0_PROJECT_ATTESTED",
-    "public_challenge_level": "NOT_YET_PUBLISHED",
     "public_reproduction_level": "NOT_CLAIMED",
-    "qualification": "The underlying reference implementation and detailed CI evidence remain private. This sanitized record is a project attestation, not independent public reproduction."
+    "qualification": "This frozen record attests that a structured public challenge contract is included in the PROJECT ACCORD public-surface artifact. It does not attest current repository visibility. R1 — PUBLICLY CHALLENGEABLE applies only while the claim and challenge surface is actually publicly accessible. Repository visibility is an external publication state and must not be inferred from this record alone. The underlying reference implementation and detailed CI evidence remain private. This sanitized record is a project attestation, not independent public reproduction.",
+    "public_challenge_contract": "STRUCTURED_COUNTEREXAMPLE_SURFACE_PRESENT"
   },
   "ci_summary": {
     "classification": "PROJECT_ATTESTED",
@@ -84,7 +84,8 @@
     "All defects are known or absent.",
     "A committed execution caused an external real-world effect.",
     "Historical reconstruction establishes present authority.",
-    "Successful project-attested CI proves ACCORD-C05 universally."
+    "Successful project-attested CI proves ACCORD-C05 universally.",
+    "This record alone establishes that the repository is currently public or that R1 is presently in effect."
   ],
   "withheld_material": [
     "private repository and engineering identifiers",
@@ -96,6 +97,6 @@
   ],
   "integrity": {
     "record_canonicalization": "UTF-8 JSON, sorted keys, separators=(',', ':'), digest field null during hashing",
-    "record_sha256": "ba1dc2df5eb0baa78342f41d9c137a166c87ea0a5f1c1837e625bdf8b42462f1"
+    "record_sha256": "38ee75805375d1331b4988ddec8c63a65e678031e6bab268874335a42400f5c0"
   }
 }
