@@ -80,7 +80,7 @@ def validate_record(record: dict) -> None:
         raise RecordError("current record lifecycle qualification is missing")
     if "public_reference.status value is record-lifecycle metadata" not in qualification:
         raise RecordError("record-lifecycle semantic separation is missing")
-    if "does not classify the historical execution lineage as provisional, committed, executed, effective, or final" not in qualification:
+    if "by itself it does not classify the historical execution lineage as provisional, committed, executed, effective, or final and does not determine whether the C05 lineage proposition is supported" not in qualification:
         raise RecordError("record status is not separated from historical-lineage semantics")
     if "R1 means structured public challengeability" not in qualification:
         raise RecordError("R1 challengeability qualification is missing")
@@ -117,8 +117,8 @@ def validate_record(record: dict) -> None:
         raise RecordError("missing forbidden inference registry")
     if "PROVISIONALLY_FROZEN public-reference status means that the historical execution lineage is provisional or uncommitted." not in forbidden:
         raise RecordError("provisional-status lineage inference is not forbidden")
-    if "FROZEN public-reference status is required for the C05 term 'committed' to apply to the historical execution lineage." not in forbidden:
-        raise RecordError("frozen-status committed-lineage inference is not forbidden")
+    if "The public_reference.status field, by itself, determines whether the C05 historical-lineage proposition is supported." not in forbidden:
+        raise RecordError("record-status support inference is not forbidden")
 
     stored = integrity.get("record_sha256")
     if not isinstance(stored, str) or len(stored) != 64:
