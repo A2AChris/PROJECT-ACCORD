@@ -73,13 +73,18 @@ def validate_record(record: dict) -> None:
         raise RecordError("unexpected public challenge contract classification")
     if classification.get("public_reproduction_level") != "NOT_CLAIMED":
         raise RecordError("public reproduction must not be implied")
+    qualification = classification.get("qualification", "")
+    if "R1 means structured public challengeability" not in qualification:
+        raise RecordError("R1 challengeability qualification is missing")
+    if "External empirical generation of private-reference traces is not currently claimed." not in qualification:
+        raise RecordError("private-reference trace-generation limitation is missing")
 
     binding = record.get("claim_binding")
     if not isinstance(binding, dict):
         raise RecordError("missing claim binding")
     evidenced = binding.get("evidenced_public_claim")
-    if evidenced != {"id": "ACCORD-C05", "revision": "v0.2"}:
-        raise RecordError("evidence record must bind only to ACCORD-C05 v0.2")
+    if evidenced != {"id": "ACCORD-C05", "revision": "v0.3"}:
+        raise RecordError("evidence record must bind only to ACCORD-C05 v0.3")
     dependencies = binding.get("semantic_dependencies_not_independently_evidenced")
     if not isinstance(dependencies, list):
         raise RecordError("missing semantic dependency classification")
@@ -108,7 +113,7 @@ def validate_record(record: dict) -> None:
 
 def main(argv=None) -> int:
     argv = list(sys.argv[1:] if argv is None else argv)
-    path = Path(argv[0]) if argv else Path(__file__).with_name("ACCORD-RM01-REFERENCE-EVIDENCE-v0.5.json")
+    path = Path(argv[0]) if argv else Path(__file__).with_name("ACCORD-RM01-REFERENCE-EVIDENCE-v0.6.json")
     try:
         record = load_record(path)
         validate_record(record)
