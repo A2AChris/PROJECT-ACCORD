@@ -1,5 +1,5 @@
 {
-  "schema": "accord.public-evidence-record.v0.4",
+  "schema": "accord.public-evidence-record.v0.5",
   "record_id": "ACCORD-EVIDENCE-RM01-v0.6",
   "project": "PROJECT ACCORD",
   "public_reference": {
@@ -98,6 +98,6 @@
   ],
   "integrity": {
     "record_canonicalization": "UTF-8 JSON, sorted keys, separators=(',', ':'), digest field null during hashing",
-    "record_sha256": "2bf3c9dc389c507fc8c7675f7b3d06454cf99e757037f097fab28cffd18f88a3"
+    "record_sha256": "c893bd644e9dd58c221c53ac92c8e8e82de218fe315f6aea8082572069dae258"
   }
 }
