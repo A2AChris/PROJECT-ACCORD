@@ -22,6 +22,10 @@ class PublicSchemaContractTests(unittest.TestCase):
                 ROOT / "claims" / "public-claim-state.schema.json",
             ),
             (
+                ROOT / "claims" / "public-semantic-dependencies.json",
+                ROOT / "claims" / "public-semantic-dependencies.schema.json",
+            ),
+            (
                 ROOT / "challenge" / "fixtures" / "template.json",
                 ROOT / "challenge" / "fixtures" / "fixture.schema.json",
             ),
