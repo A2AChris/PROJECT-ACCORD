@@ -44,7 +44,7 @@ def canonical_digest(record: dict) -> str:
 
 
 def validate_record(record: dict) -> None:
-    if record.get("schema") != "accord.public-evidence-record.v0.4":
+    if record.get("schema") != "accord.public-evidence-record.v0.5":
         raise RecordError("unsupported schema")
     if record.get("project") != "PROJECT ACCORD":
         raise RecordError("unexpected project")
