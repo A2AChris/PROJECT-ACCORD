@@ -36,10 +36,10 @@ A status value is preserved as part of the immutable historical bytes of the rec
 carried it. Historical records are not rewritten merely because a later record becomes
 current, supersedes them, or records a different lifecycle classification.
 
-For C05, the word `committed` belongs to the **historical lineage proposition** in the
-claim contract. It is orthogonal to `public_reference.status`. In particular,
-`PROVISIONALLY_FROZEN` does not mean that the historical lineage is provisional or
-uncommitted, and `FROZEN` is not a prerequisite for the C05 term `committed`.
+C05 separately defines a historical-lineage proposition using the term `committed`.
+`public_reference.status` is not itself a definition of that term and, by itself, does
+not determine whether the C05 lineage proposition is supported. Any material change to
+C05 meaning remains governed by the public claim-change rule in `CLAIMS.md`.
 
 ## Challenge availability
 
