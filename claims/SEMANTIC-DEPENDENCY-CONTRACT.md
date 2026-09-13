@@ -1,6 +1,6 @@
 # PROJECT ACCORD — Semantic Dependency Failure-Propagation Contract
 
-**Status:** Public-surface semantic dependency governance contract  
+**Status:** Public-surface semantic dependency governance contract
 **Revision:** `v0.1`
 
 ## Purpose
