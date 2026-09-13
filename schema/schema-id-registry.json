@@ -1,0 +1,50 @@
+{
+  "schema": "accord.public-schema-id-registry.v0.1",
+  "policy_revision": "v0.1",
+  "new_identifier_prefix": "urn:project-accord:schema:",
+  "canonical_access": "REPOSITORY_PATH_AT_EXACT_GIT_REVISION",
+  "legacy_non_dereferenceable_identifiers": [
+    {
+      "path": "challenge/adjudications/adjudication-record.schema.json",
+      "id": "https://project-accord.example/schema/challenge-adjudication-record.v0.3.json",
+      "classification": "NON_DEREFERENCEABLE_LEGACY_IDENTIFIER",
+      "dereferenceable": false
+    },
+    {
+      "path": "challenge/adjudications/adjudication-record.v0.2.schema.json",
+      "id": "https://project-accord.example/schema/challenge-adjudication-record.v0.2.json",
+      "classification": "NON_DEREFERENCEABLE_LEGACY_IDENTIFIER",
+      "dereferenceable": false
+    },
+    {
+      "path": "challenge/adjudications/index.schema.json",
+      "id": "https://project-accord.example/schema/challenge-adjudication-index.v0.3.json",
+      "classification": "NON_DEREFERENCEABLE_LEGACY_IDENTIFIER",
+      "dereferenceable": false
+    },
+    {
+      "path": "challenge/adjudications/index.v0.2.schema.json",
+      "id": "https://project-accord.example/schema/challenge-adjudication-index.v0.2.json",
+      "classification": "NON_DEREFERENCEABLE_LEGACY_IDENTIFIER",
+      "dereferenceable": false
+    },
+    {
+      "path": "challenge/receipts/index.schema.json",
+      "id": "https://project-accord.example/schema/challenge-receipt-index.v0.1.json",
+      "classification": "NON_DEREFERENCEABLE_LEGACY_IDENTIFIER",
+      "dereferenceable": false
+    },
+    {
+      "path": "claims/public-claim-state.schema.json",
+      "id": "https://project-accord.example/schema/public-claim-state.v0.1.json",
+      "classification": "NON_DEREFERENCEABLE_LEGACY_IDENTIFIER",
+      "dereferenceable": false
+    },
+    {
+      "path": "claims/public-semantic-dependencies.schema.json",
+      "id": "https://project-accord.example/schema/public-semantic-dependency-registry.v0.1.json",
+      "classification": "NON_DEREFERENCEABLE_LEGACY_IDENTIFIER",
+      "dereferenceable": false
+    }
+  ]
+}
