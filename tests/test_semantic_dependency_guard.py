@@ -45,6 +45,18 @@ class SemanticDependencyGuardTests(unittest.TestCase):
         set_state(states, "ACCORD-C05", "v0.3", "SUSPENDED")
         guard.validate_dependencies(copy.deepcopy(DEPENDENCIES), states)
 
+    def test_cyclic_dependency_graph_is_rejected(self):
+        dependencies = copy.deepcopy(DEPENDENCIES)
+        dependencies["dependencies"].append(
+            {
+                "dependent": {"id": "ACCORD-C03", "revision": "v0.2"},
+                "dependency": {"id": "ACCORD-C05", "revision": "v0.3"},
+                "kind": "SEMANTIC_INTERPRETATION",
+            }
+        )
+        with self.assertRaises(guard.DependencyGuardError):
+            guard.validate_dependencies(dependencies, copy.deepcopy(STATE_REGISTRY))
+
 
 if __name__ == "__main__":
     unittest.main()
