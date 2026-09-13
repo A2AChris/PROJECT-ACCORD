@@ -24,20 +24,21 @@ class ReleaseSurfaceTests(unittest.TestCase):
         self.assertNotIn("currently public", README.lower())
 
     def test_readme_declares_current_research_maturity_and_evidence_limits(self):
-        self.assertIn("PROJECT ACCORD is an **early public research artifact**.", README)
+        normalized_readme = " ".join(README.split())
+        self.assertIn("PROJECT ACCORD is an **early public research artifact**.", normalized_readme)
         self.assertIn(
-            "not presented as a\nstandard, a production-ready system, or an independently validated implementation",
-            README,
+            "not presented as a standard, a production-ready system, or an independently validated implementation",
+            normalized_readme,
         )
-        self.assertIn("C01 and C02 currently have no claim-specific public reference evidence attached", README)
+        self.assertIn("C01 and C02 currently have no claim-specific public reference evidence attached", normalized_readme)
         self.assertIn(
-            "C03 and C04 are semantic dependencies of RM01 but are not independently evidenced by\n  RM01",
-            README,
+            "C03 and C04 are semantic dependencies of RM01 but are not independently evidenced by RM01",
+            normalized_readme,
         )
-        self.assertIn("C05 currently has **R0 — PROJECT-ATTESTED** evidence via `ACCORD-RM01`", README)
-        self.assertIn("R2\n  independent public reproduction of the private reference is not claimed", README)
-        self.assertIn("PROJECT ACCORD ist ein **frühes öffentliches Forschungsartefakt**.", README)
-        self.assertIn("Standard, produktionsreifes System oder unabhängig validierte Implementierung", README)
+        self.assertIn("C05 currently has **R0 — PROJECT-ATTESTED** evidence via `ACCORD-RM01`", normalized_readme)
+        self.assertIn("R2 independent public reproduction of the private reference is not claimed", normalized_readme)
+        self.assertIn("PROJECT ACCORD ist ein **frühes öffentliches Forschungsartefakt**.", normalized_readme)
+        self.assertIn("Standard, produktionsreifes System oder unabhängig validierte Implementierung", normalized_readme)
 
     def test_confidential_security_contact_is_declared(self):
         self.assertIn("project_accord@proton.me", SECURITY)
