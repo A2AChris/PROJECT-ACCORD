@@ -18,8 +18,16 @@ class PublicSchemaContractTests(unittest.TestCase):
                 ROOT / "claims" / "public-claim-index.schema.json",
             ),
             (
+                ROOT / "claims" / "public-claim-state.json",
+                ROOT / "claims" / "public-claim-state.schema.json",
+            ),
+            (
                 ROOT / "challenge" / "fixtures" / "template.json",
                 ROOT / "challenge" / "fixtures" / "fixture.schema.json",
+            ),
+            (
+                ROOT / "challenge" / "adjudications" / "index.json",
+                ROOT / "challenge" / "adjudications" / "index.schema.json",
             ),
             (
                 ROOT / "evidence" / "ACCORD-RM01-REFERENCE-EVIDENCE-v0.5.json",
@@ -29,6 +37,18 @@ class PublicSchemaContractTests(unittest.TestCase):
         targets.extend(
             (path, ROOT / "challenge" / "fixtures" / "fixture.schema.json")
             for path in sorted((ROOT / "challenge" / "fixtures" / "examples").glob("*.json"))
+        )
+        targets.extend(
+            (
+                path,
+                ROOT
+                / "challenge"
+                / "adjudications"
+                / "adjudication-record.schema.json",
+            )
+            for path in sorted(
+                (ROOT / "challenge" / "adjudications" / "records").glob("*.json")
+            )
         )
         for instance_path, schema_path in targets:
             with self.subTest(instance=instance_path.name):
