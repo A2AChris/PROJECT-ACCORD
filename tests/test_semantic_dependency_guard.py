@@ -20,6 +20,11 @@ STATE_REGISTRY = json.loads(
 DEPENDENCY_REGISTRY = json.loads(
     (ROOT / "claims" / "public-semantic-dependencies.json").read_text(encoding="utf-8")
 )
+CURRENT_RM01 = json.loads(
+    (ROOT / "evidence" / "ACCORD-RM01-REFERENCE-EVIDENCE-v0.7.json").read_text(
+        encoding="utf-8"
+    )
+)
 
 
 def entries():
@@ -68,6 +73,18 @@ class SemanticDependencyGuardTests(unittest.TestCase):
                 ("ACCORD-C04", "v0.2"),
             },
         )
+
+    def test_registry_matches_current_rm01_semantic_dependencies(self):
+        dependent, requirements = bindings()[0]
+        evidenced = CURRENT_RM01["claim_binding"]["evidenced_public_claim"]
+        rm01_dependencies = {
+            (item["id"], item["revision"])
+            for item in CURRENT_RM01["claim_binding"][
+                "semantic_dependencies_not_independently_evidenced"
+            ]
+        }
+        self.assertEqual(dependent, (evidenced["id"], evidenced["revision"]))
+        self.assertEqual(set(requirements), rm01_dependencies)
 
     def test_confirmed_dependency_finding_blocks_published_dependent(self):
         current_entries = entries()
