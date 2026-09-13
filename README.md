@@ -220,8 +220,12 @@ Apache-2.0 or another stated license. See [`LICENSE`](LICENSE) and
 General external code/document contributions remain closed until explicitly opened under
 the contribution rules in [`CONTRIBUTING.md`](CONTRIBUTING.md).
 
-Confidential security reports may be sent to `project_accord@proton.me`. Repository-native
-private vulnerability reporting is intended as an additional channel after public release.
+Confidential security reports may be sent to `project_accord@proton.me`. GitHub
+repository-native private vulnerability reporting may be used as an additional channel if
+GitHub makes that facility available and it is enabled for this repository. Its
+availability is a repository setting, not a condition of repository public status or of
+the email channel above. The email channel remains valid independently of that platform
+feature.
 
 ---
 
@@ -440,5 +444,8 @@ Allgemeine externe Code-/Dokument-Contributions bleiben geschlossen, bis sie nac
 Regeln in [`CONTRIBUTING.md`](CONTRIBUTING.md) ausdrücklich geöffnet werden.
 
 Vertrauliche Security-Reports können an `project_accord@proton.me` gesendet werden.
-Repository-natives Private Vulnerability Reporting ist nach dem Public Release als
-zusätzlicher Kanal vorgesehen.
+GitHubs repository-natives Private Vulnerability Reporting kann als zusätzlicher Kanal
+genutzt werden, wenn GitHub die Funktion bereitstellt und sie für dieses Repository
+aktiviert ist. Seine Verfügbarkeit ist eine Repository-Einstellung und keine Bedingung
+für den öffentlichen Status des Repositories oder für den E-Mail-Kanal. Der E-Mail-Kanal
+bleibt unabhängig von dieser Plattformfunktion gültig.
