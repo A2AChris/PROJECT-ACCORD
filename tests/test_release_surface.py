@@ -40,6 +40,21 @@ class ReleaseSurfaceTests(unittest.TestCase):
         self.assertIn("PROJECT ACCORD ist ein **frühes öffentliches Forschungsartefakt**.", normalized_readme)
         self.assertIn("Standard, produktionsreifes System oder unabhängig validierte Implementierung", normalized_readme)
 
+    def test_reproduction_levels_are_project_local_not_external_assurance_labels(self):
+        normalized = " ".join(PUBLIC_DISCLOSURE.split())
+        self.assertIn(
+            "PROJECT ACCORD-specific public evidence/reproduction classifications",
+            normalized,
+        )
+        self.assertIn(
+            "not an external standard, certification, assurance rating, industry maturity level, or third-party endorsement",
+            normalized,
+        )
+        self.assertIn(
+            "must not be read as a general safety or production-readiness score",
+            normalized,
+        )
+
     def test_confidential_security_contact_is_declared(self):
         self.assertIn("project_accord@proton.me", SECURITY)
         self.assertIn("project_accord@proton.me", README)
@@ -53,9 +68,18 @@ class ReleaseSurfaceTests(unittest.TestCase):
         tail = CONTRIBUTING.split(marker, 1)[1]
         self.assertNotIn("verified confidential security-reporting channel", tail)
 
-    def test_private_vulnerability_reporting_is_additional_not_required_for_email_channel(self):
-        self.assertIn("additional\nchannel once the repository is public", SECURITY)
-        self.assertIn("email channel above remains valid independently", SECURITY)
+    def test_private_vulnerability_reporting_is_optional_repository_setting(self):
+        normalized = " ".join(SECURITY.split())
+        self.assertIn(
+            "private vulnerability reporting may be used as an additional channel",
+            normalized,
+        )
+        self.assertIn(
+            "availability is a repository setting, not a condition of repository public status",
+            normalized,
+        )
+        self.assertIn("email channel remains valid independently", normalized)
+        self.assertNotIn("once the repository is public", normalized)
 
     def test_license_is_canonical_apache_2_0_text(self):
         license_bytes = (ROOT / "LICENSE").read_bytes()
