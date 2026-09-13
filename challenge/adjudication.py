@@ -234,6 +234,11 @@ def _validate_reviewer_positions(
         raise AdjudicationError("reviewers must be non-empty and uniquely identified")
 
     for reviewer in reviewers:
+        relationship = reviewer.get("relationship")
+        if relationship not in {"PROJECT", "EXTERNAL"}:
+            raise AdjudicationError(
+                f"unsupported reviewer relationship for {reviewer['identifier']}: {relationship}"
+            )
         position = reviewer.get("position")
         if position not in REVIEW_POSITIONS:
             raise AdjudicationError(
