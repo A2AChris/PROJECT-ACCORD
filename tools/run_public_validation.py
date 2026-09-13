@@ -120,7 +120,7 @@ def verify_schema_contracts() -> int:
             adjudication_index_schema,
         ),
         (
-            ROOT / "evidence" / "ACCORD-RM01-REFERENCE-EVIDENCE-v0.5.json",
+            ROOT / "evidence" / "ACCORD-RM01-REFERENCE-EVIDENCE-v0.6.json",
             evidence_schema,
         ),
     ]
