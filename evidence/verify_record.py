@@ -58,6 +58,8 @@ def validate_record(record: dict) -> None:
 
     if ref.get("alias") != "ACCORD-RM01":
         raise RecordError("unexpected public reference alias")
+    if ref.get("status") != "PROVISIONALLY_FROZEN":
+        raise RecordError("unexpected current public reference lifecycle status")
     commitment = ref.get("private_reference_commitment")
     if not isinstance(commitment, dict):
         raise RecordError("missing private reference commitment")
@@ -74,6 +76,12 @@ def validate_record(record: dict) -> None:
     if classification.get("public_reproduction_level") != "NOT_CLAIMED":
         raise RecordError("public reproduction must not be implied")
     qualification = classification.get("qualification", "")
+    if "This provisionally frozen public evidence record" not in qualification:
+        raise RecordError("current record lifecycle qualification is missing")
+    if "public_reference.status value is record-lifecycle metadata" not in qualification:
+        raise RecordError("record-lifecycle semantic separation is missing")
+    if "does not classify the historical execution lineage as provisional, committed, executed, effective, or final" not in qualification:
+        raise RecordError("record status is not separated from historical-lineage semantics")
     if "R1 means structured public challengeability" not in qualification:
         raise RecordError("R1 challengeability qualification is missing")
     if "External empirical generation of private-reference traces is not currently claimed." not in qualification:
@@ -104,6 +112,14 @@ def validate_record(record: dict) -> None:
         if passed != total:
             raise RecordError("record does not attest a fully passing profile")
 
+    forbidden = record.get("forbidden_inferences")
+    if not isinstance(forbidden, list):
+        raise RecordError("missing forbidden inference registry")
+    if "PROVISIONALLY_FROZEN public-reference status means that the historical execution lineage is provisional or uncommitted." not in forbidden:
+        raise RecordError("provisional-status lineage inference is not forbidden")
+    if "FROZEN public-reference status is required for the C05 term 'committed' to apply to the historical execution lineage." not in forbidden:
+        raise RecordError("frozen-status committed-lineage inference is not forbidden")
+
     stored = integrity.get("record_sha256")
     if not isinstance(stored, str) or len(stored) != 64:
         raise RecordError("invalid record digest")
@@ -113,7 +129,7 @@ def validate_record(record: dict) -> None:
 
 def main(argv=None) -> int:
     argv = list(sys.argv[1:] if argv is None else argv)
-    path = Path(argv[0]) if argv else Path(__file__).with_name("ACCORD-RM01-REFERENCE-EVIDENCE-v0.6.json")
+    path = Path(argv[0]) if argv else Path(__file__).with_name("ACCORD-RM01-REFERENCE-EVIDENCE-v0.7.json")
     try:
         record = load_record(path)
         validate_record(record)
@@ -127,6 +143,7 @@ def main(argv=None) -> int:
     print("PUBLIC_RECORD_SELF_CHECK=PASS")
     print(f"RECORD_ID={record['record_id']}")
     print(f"PUBLIC_REFERENCE={record['public_reference']['alias']}")
+    print(f"PUBLIC_REFERENCE_STATUS={record['public_reference']['status']}")
     print(f"PRIVATE_REFERENCE_COMMITMENT={record['public_reference']['private_reference_commitment']['commitment']}")
     print(f"RECORD_SHA256={record['integrity']['record_sha256']}")
     print("PRIVATE_REFERENCE_OPENING=NOT_PERFORMED")
