@@ -1,7 +1,7 @@
 # PROJECT ACCORD — Public Claims
 
 **Status:** Public-surface claim contract
-**Public contract revision:** `v0.2`
+**Public contract revision:** `v0.3`
 
 This document is the normative public prose contract for PROJECT ACCORD claims.
 
@@ -452,7 +452,7 @@ undisclosed.
 
 # ACCORD-C05 — Bounded Historical Execution Lineage
 
-**Revision:** `v0.2`
+**Revision:** `v0.3`
 
 ### Claim
 
@@ -600,8 +600,21 @@ evidence for those broader claims.
 ### Reproduction level
 
 - C05 private reference evidence: **R0 — PROJECT-ATTESTED**;
-- public challengeability: not upgraded until the challenge surface is actually public;
-- public reproduction of the private reference implementation: **not claimed**.
+- current public claim, intake, lifecycle, and adjudication surface: **R1 — PUBLICLY
+  CHALLENGEABLE** while those public artifacts remain accessible;
+- R1 permits structured external counterexamples and novel falsification hypotheses, but
+  does not imply public execution access to, simulation of, public trace generation from,
+  or independent reproduction of the private reference implementation;
+- **External empirical generation of private-reference traces is not currently claimed.**
+  A challenge may rely on public artifacts, independently available evidence, externally
+  obtained trace material, or the `NOVEL_FALSIFICATION_HYPOTHESIS` path where the
+  registered falsification surface itself is alleged to be incomplete;
+- **R2 — PUBLICLY REPRODUCIBLE** verification of the private reference implementation is
+  not claimed.
+
+R1 and R2 are distinct properties. Lack of public private-reference execution access is a
+limitation on independent empirical reproduction; it does not by itself negate the
+public challengeability of the claim contract.
 
 ### Disclosure boundary
 
