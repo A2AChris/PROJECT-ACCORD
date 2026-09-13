@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "urn:project-accord:schema:public-evidence-record:v0.4",
-  "title": "PROJECT ACCORD Public Evidence Record v0.4",
+  "$id": "urn:project-accord:schema:public-evidence-record:v0.5",
+  "title": "PROJECT ACCORD Public Evidence Record v0.5",
   "type": "object",
   "additionalProperties": false,
   "required": [
@@ -20,7 +20,7 @@
   ],
   "properties": {
     "schema": {
-      "const": "accord.public-evidence-record.v0.4"
+      "const": "accord.public-evidence-record.v0.5"
     },
     "record_id": {
       "type": "string",
@@ -99,7 +99,7 @@
               "const": "ACCORD-C05"
             },
             "revision": {
-              "const": "v0.2"
+              "const": "v0.3"
             }
           }
         },
