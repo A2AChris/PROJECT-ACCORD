@@ -27,6 +27,9 @@ Each binding names:
 The registry records existing public claim semantics. It does not silently add a new
 claim requirement.
 
+The semantic dependency graph must be acyclic. A claim revision must not depend directly
+or indirectly on itself through other semantic dependency bindings.
+
 ## Failure-propagation trigger
 
 A semantic dependency becomes **adversely active** for this contract only when an active
@@ -90,6 +93,8 @@ active adjudication records.
 The public validation workflow must fail if an active confirmed negative finding targets
 an exact registered dependency revision while its dependent revision remains
 `PUBLISHED`.
+
+The guard also rejects direct or indirect cycles in the semantic dependency graph.
 
 The guard operates only on public governance artifacts. It performs no private reference
 verification.
