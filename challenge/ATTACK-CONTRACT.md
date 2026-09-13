@@ -1,7 +1,7 @@
 # PROJECT ACCORD — Public Challenge Contract
 
 **Status:** Public-surface challenge contract
-**Revision:** `v0.4`
+**Revision:** `v0.5`
 
 ## Purpose
 
@@ -107,6 +107,23 @@ The harness does not:
 - remove contradictions;
 - rank competing observations; or
 - adjudicate the public claim.
+
+## Evidence-level interpretation
+
+Public inability to independently verify an **R0 — PROJECT-ATTESTED** record limits the
+public evidence and reproduction level. By itself, that non-verification does **not**
+establish that a registered falsification condition occurred.
+
+For a result-dependent evidence-admission condition such as `C05-F8`, substantive
+confirmation requires evidence supporting an actual exclusion, inclusion, or
+reclassification of material evidence and the alleged result-dependent reason for that
+treatment. An external observer's inability to rule out that possibility is not, by
+itself, evidence that the condition occurred.
+
+This distinction does not prevent a submitter from making the allegation. A mechanically
+well-formed submission remains a submission with `judgment = NOT_PERFORMED`; substantive
+review may still conclude that evidence is insufficient, that the condition is not
+confirmed, or that a separate contract gap exists.
 
 ## Security boundary
 
