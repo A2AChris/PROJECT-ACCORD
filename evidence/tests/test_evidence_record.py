@@ -11,8 +11,9 @@ spec = importlib.util.spec_from_file_location("verify_record", EV / "verify_reco
 vr = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(vr)
 
-HISTORICAL_RECORD = json.loads((EV / "ACCORD-RM01-REFERENCE-EVIDENCE-v0.5.json").read_text(encoding="utf-8"))
-RECORD = json.loads((EV / "ACCORD-RM01-REFERENCE-EVIDENCE-v0.6.json").read_text(encoding="utf-8"))
+HISTORICAL_RECORD_V05 = json.loads((EV / "ACCORD-RM01-REFERENCE-EVIDENCE-v0.5.json").read_text(encoding="utf-8"))
+HISTORICAL_RECORD_V06 = json.loads((EV / "ACCORD-RM01-REFERENCE-EVIDENCE-v0.6.json").read_text(encoding="utf-8"))
+RECORD = json.loads((EV / "ACCORD-RM01-REFERENCE-EVIDENCE-v0.7.json").read_text(encoding="utf-8"))
 
 
 def resign(obj):
@@ -27,14 +28,33 @@ class EvidenceRecordP8Tests(unittest.TestCase):
         vr.validate_record(RECORD)
 
     def test_historical_v05_record_is_preserved(self):
-        self.assertEqual(HISTORICAL_RECORD["record_id"], "ACCORD-EVIDENCE-RM01-v0.5")
+        self.assertEqual(HISTORICAL_RECORD_V05["record_id"], "ACCORD-EVIDENCE-RM01-v0.5")
         self.assertEqual(
-            HISTORICAL_RECORD["claim_binding"]["evidenced_public_claim"],
+            HISTORICAL_RECORD_V05["claim_binding"]["evidenced_public_claim"],
             {"id": "ACCORD-C05", "revision": "v0.2"},
         )
         self.assertEqual(
-            HISTORICAL_RECORD["integrity"]["record_sha256"],
+            HISTORICAL_RECORD_V05["integrity"]["record_sha256"],
             "38ee75805375d1331b4988ddec8c63a65e678031e6bab268874335a42400f5c0",
+        )
+
+    def test_historical_v06_record_is_preserved(self):
+        self.assertEqual(HISTORICAL_RECORD_V06["record_id"], "ACCORD-EVIDENCE-RM01-v0.6")
+        self.assertEqual(
+            HISTORICAL_RECORD_V06["claim_binding"]["evidenced_public_claim"],
+            {"id": "ACCORD-C05", "revision": "v0.3"},
+        )
+        self.assertEqual(HISTORICAL_RECORD_V06["public_reference"]["status"], "PROVISIONALLY_FROZEN")
+        self.assertEqual(
+            HISTORICAL_RECORD_V06["integrity"]["record_sha256"],
+            "c893bd644e9dd58c221c53ac92c8e8e82de218fe315f6aea8082572069dae258",
+        )
+
+    def test_current_record_is_v07(self):
+        self.assertEqual(RECORD["record_id"], "ACCORD-EVIDENCE-RM01-v0.7")
+        self.assertEqual(
+            RECORD["integrity"]["record_sha256"],
+            "636517435db9c269936821f10099aa790bc741c3b7a888ecd461f0659180f551",
         )
 
     def test_digest_recomputes(self):
@@ -46,6 +66,33 @@ class EvidenceRecordP8Tests(unittest.TestCase):
         commitment = ref["private_reference_commitment"]
         self.assertEqual(commitment["algorithm"], "SHA-256")
         self.assertEqual(len(commitment["commitment"]), 64)
+
+    def test_public_reference_status_is_record_lifecycle_metadata(self):
+        self.assertEqual(RECORD["public_reference"]["status"], "PROVISIONALLY_FROZEN")
+        qualification = RECORD["evidence_classification"]["qualification"]
+        self.assertIn("public_reference.status value is record-lifecycle metadata", qualification)
+        self.assertIn(
+            "by itself it does not classify the historical execution lineage as provisional, committed, executed, effective, or final and does not determine whether the C05 lineage proposition is supported",
+            qualification,
+        )
+        self.assertIn(
+            "PROVISIONALLY_FROZEN public-reference status means that the historical execution lineage is provisional or uncommitted.",
+            RECORD["forbidden_inferences"],
+        )
+        self.assertIn(
+            "The public_reference.status field, by itself, determines whether the C05 historical-lineage proposition is supported.",
+            RECORD["forbidden_inferences"],
+        )
+
+    def test_missing_status_semantic_separation_is_rejected(self):
+        r = copy.deepcopy(RECORD)
+        r["evidence_classification"]["qualification"] = r["evidence_classification"]["qualification"].replace(
+            "The public_reference.status value is record-lifecycle metadata; by itself it does not classify the historical execution lineage as provisional, committed, executed, effective, or final and does not determine whether the C05 lineage proposition is supported. ",
+            "",
+        )
+        r = resign(r)
+        with self.assertRaises(vr.RecordError):
+            vr.validate_record(r)
 
     def test_evidence_binds_only_c05(self):
         self.assertEqual(

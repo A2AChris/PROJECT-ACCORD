@@ -6,9 +6,40 @@ This directory contains sanitized public evidence records.
 
 `ACCORD-RM01`
 
+Current record: `ACCORD-EVIDENCE-RM01-v0.7`
+
 Evidence level: **R0 — PROJECT-ATTESTED**
 
 The current record is attached to **ACCORD-C05 v0.3 only**.
+
+## Public-reference lifecycle status semantics
+
+`public_reference.status` is **record-lifecycle metadata** for the public reference record.
+It is not a classification of the historical execution lineage and must not be used to
+infer whether that lineage is provisional, committed, executed, effective, or final.
+
+The allowed values mean:
+
+- `PROVISIONALLY_FROZEN` — the record revision is digest-bound and stable enough to serve
+  as the current public R0 record, but lifecycle finality of that record revision is not
+  claimed. A material correction or qualification is issued through a later record
+  revision rather than by silently rewriting the existing record.
+- `FROZEN` — the record revision has been declared lifecycle-final for its stated public
+  evidence scope. Later correction or evolution still occurs through a new record
+  revision rather than mutation of the frozen record.
+- `SUPERSEDED` — the record revision represents a public-reference state that is no
+  longer the current evidence basis because a later record has replaced it.
+- `REVOKED` — the record revision represents a public-reference state that must not be
+  used as the current evidence basis.
+
+A status value is preserved as part of the immutable historical bytes of the record that
+carried it. Historical records are not rewritten merely because a later record becomes
+current, supersedes them, or records a different lifecycle classification.
+
+C05 separately defines a historical-lineage proposition using the term `committed`.
+`public_reference.status` is not itself a definition of that term and, by itself, does
+not determine whether the C05 lineage proposition is supported. Any material change to
+C05 meaning remains governed by the public claim-change rule in `CLAIMS.md`.
 
 ## Challenge availability
 
@@ -71,7 +102,7 @@ Run:
 python evidence/verify_record.py
 ```
 
-A successful self-check verifies the public record's digest and declared public
+A successful self-check verifies the current public record's digest and declared public
 cross-field invariants only.
 
 It intentionally reports:
