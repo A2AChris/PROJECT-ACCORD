@@ -112,10 +112,37 @@ class PublicChallengeHarnessP8Tests(unittest.TestCase):
             {"historical_subject", "historical_cutoff"},
         )
 
+    def test_unforeseen_mechanism_is_not_new_normative_condition(self):
+        attack_contract = (CH / "ATTACK-CONTRACT.md").read_text(encoding="utf-8")
+        lifecycle_contract = (CH / "LIFECYCLE-CONTRACT.md").read_text(encoding="utf-8")
+        attack_norm = " ".join(attack_contract.split())
+        lifecycle_norm = " ".join(lifecycle_contract.split())
+
+        self.assertIn(
+            "An **unforeseen mechanism is not, by itself, a new normative condition**.",
+            attack_norm,
+        )
+        self.assertIn(
+            "Novelty of mechanism alone must not be used as a reason to reject a hypothesis.",
+            attack_norm,
+        )
+        self.assertIn(
+            "must identify the public claim or rule text showing that the alleged requirement is outside the existing normative contract.",
+            attack_norm,
+        )
+        self.assertIn(
+            "the alleged contradiction with the public claim",
+            lifecycle_norm,
+        )
+        self.assertIn(
+            "why no registered falsification ID faithfully captures it.",
+            lifecycle_norm,
+        )
+
     def test_r0_nonverification_is_not_promoted_to_c05_f8(self):
         attack_contract = (CH / "ATTACK-CONTRACT.md").read_text(encoding="utf-8")
         evidence_readme = (ROOT / "evidence" / "README.md").read_text(encoding="utf-8")
-        self.assertIn("**Revision:** `v0.5`", attack_contract)
+        self.assertIn("**Revision:** `v0.6`", attack_contract)
         self.assertIn("does **not**\nestablish that a registered falsification condition occurred", attack_contract)
         self.assertIn("actual exclusion, inclusion, or\nreclassification of material evidence", attack_contract)
         self.assertIn("`REFERENCE_VERIFICATION=NOT_PERFORMED` must not be promoted", evidence_readme)

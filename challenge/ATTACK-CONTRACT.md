@@ -1,7 +1,7 @@
 # PROJECT ACCORD — Public Challenge Contract
 
 **Status:** Public-surface challenge contract
-**Revision:** `v0.5`
+**Revision:** `v0.6`
 
 ## Purpose
 
@@ -48,6 +48,17 @@ published falsification ID faithfully expresses, the submitter may use the separ
 
 That path challenges the completeness of the public falsification contract. It does not
 grant the submitter authority to invent a new normative falsification condition.
+
+An **unforeseen mechanism is not, by itself, a new normative condition**. A novel
+hypothesis remains eligible when the alleged mechanism was not anticipated by the
+registered falsification IDs, provided the submitter identifies a contradiction with
+normative content already present in the published claim revision.
+
+A **new normative condition** is instead a requirement that the submitter asks PROJECT
+ACCORD to impose even though the published claim revision does not require it. Novelty of
+mechanism alone must not be used as a reason to reject a hypothesis. A substantive
+out-of-scope rejection on this basis must identify the public claim or rule text showing
+that the alleged requirement is outside the existing normative contract.
 
 ## Scope position
 

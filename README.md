@@ -103,8 +103,11 @@ A standard registered-falsification challenge binds to:
 
 A separate `NOVEL_FALSIFICATION_HYPOTHESIS` lifecycle path exists for a plausible claim
 contradiction that no currently published falsification ID can faithfully express. That
-path challenges the completeness of the public falsification surface; it does not let the
-submitter invent a new normative condition.
+path challenges the completeness of the public falsification surface. An unforeseen
+mechanism is not, by itself, a new normative condition: it remains eligible when it
+alleges a contradiction with normative content already present in the published claim
+revision. What the path does not permit is adding a requirement that the published claim
+revision never made.
 
 The canonical public intake for a non-sensitive research challenge is a GitHub Issue in
 this repository whose title begins with `[ACCORD CHALLENGE]`. Public receipt and pending
@@ -315,8 +318,11 @@ Eine standardisierte Registered-Falsification-Challenge bindet an:
 Für einen plausiblen Claim-Widerspruch, der durch keine bestehende Falsification ID
 sauber ausdrückbar ist, gibt es zusätzlich den Lifecycle-Pfad
 `NOVEL_FALSIFICATION_HYPOTHESIS`. Dieser greift die Vollständigkeit der öffentlichen
-Falsification Surface an; der Einreicher darf dadurch keine neue normative Bedingung
-selbst erfinden.
+Falsification Surface an. Ein unvorhergesehener Mechanismus ist für sich genommen keine
+neue normative Bedingung: Er bleibt zulässig, wenn er einen Widerspruch zu bereits
+vorhandenem normativem Inhalt der veröffentlichten Claim Revision behauptet. Nicht
+zulässig ist dagegen, über diesen Pfad eine Anforderung hinzuzufügen, die die
+veröffentlichte Claim Revision nie aufgestellt hat.
 
 Der kanonische öffentliche Intake für nicht-sensitive Research Challenges ist ein
 GitHub Issue in diesem Repository, dessen Titel mit `[ACCORD CHALLENGE]` beginnt. Public
