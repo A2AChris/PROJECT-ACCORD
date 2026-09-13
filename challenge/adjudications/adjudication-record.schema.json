@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://project-accord.example/schema/challenge-adjudication-record.v0.2.json",
+  "$id": "https://project-accord.example/schema/challenge-adjudication-record.v0.3.json",
   "title": "PROJECT ACCORD public challenge adjudication record",
   "type": "object",
   "additionalProperties": false,
@@ -16,7 +16,7 @@
   ],
   "properties": {
     "schema": {
-      "const": "accord.challenge-adjudication-record.v0.2"
+      "const": "accord.challenge-adjudication-record.v0.3"
     },
     "adjudication_id": {
       "type": "string",
@@ -111,7 +111,10 @@
             "additionalProperties": false,
             "required": [
               "identifier",
-              "relationship"
+              "relationship",
+              "position",
+              "rationale",
+              "evidence_references"
             ],
             "properties": {
               "identifier": {
@@ -125,6 +128,31 @@
                   "PROJECT",
                   "EXTERNAL"
                 ]
+              },
+              "position": {
+                "type": "string",
+                "enum": [
+                  "CONFIRMED_FALSIFICATION",
+                  "CONFIRMED_CONTRACT_GAP",
+                  "REJECTED_OUT_OF_SCOPE",
+                  "INSUFFICIENT_EVIDENCE",
+                  "NOT_CONFIRMED",
+                  "ABSTAIN"
+                ]
+              },
+              "rationale": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 8000
+              },
+              "evidence_references": {
+                "type": "array",
+                "uniqueItems": true,
+                "items": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 500
+                }
               }
             }
           }
@@ -182,7 +210,8 @@
       "required": [
         "basis",
         "public_rule_references",
-        "evidence_references"
+        "evidence_references",
+        "dissent_responses"
       ],
       "properties": {
         "basis": {
@@ -206,6 +235,30 @@
             "type": "string",
             "minLength": 1,
             "maxLength": 500
+          }
+        },
+        "dissent_responses": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "reviewer_identifier",
+              "response"
+            ],
+            "properties": {
+              "reviewer_identifier": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 200
+              },
+              "response": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 8000
+              }
+            }
           }
         },
         "missing_evidence_statement": {
