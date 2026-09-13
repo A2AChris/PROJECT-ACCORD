@@ -1,6 +1,6 @@
 # PROJECT ACCORD — Public Challenge Adjudication Contract
 
-**Status:** Public-surface challenge adjudication contract  
+**Status:** Public-surface challenge adjudication contract
 **Revision:** `v0.1`
 
 ## Purpose
