@@ -1,0 +1,28 @@
+{
+  "schema": "accord.public-semantic-dependencies.v0.1",
+  "contract_revision": "v0.1",
+  "dependencies": [
+    {
+      "dependent": {
+        "id": "ACCORD-C05",
+        "revision": "v0.3"
+      },
+      "dependency": {
+        "id": "ACCORD-C03",
+        "revision": "v0.2"
+      },
+      "kind": "SEMANTIC_INTERPRETATION"
+    },
+    {
+      "dependent": {
+        "id": "ACCORD-C05",
+        "revision": "v0.3"
+      },
+      "dependency": {
+        "id": "ACCORD-C04",
+        "revision": "v0.2"
+      },
+      "kind": "SEMANTIC_INTERPRETATION"
+    }
+  ]
+}
