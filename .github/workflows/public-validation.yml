@@ -52,5 +52,24 @@ jobs:
       - name: Runtime identity
         run: python -VV
 
+      - name: Emit candidate digests
+        if: runner.os == 'Linux' && matrix.python == '3.12'
+        shell: bash
+        run: |
+          python - <<'PY'
+          import hashlib
+          from pathlib import Path
+
+          excluded = {'.git', '__pycache__', '.pytest_cache'}
+          for path in sorted(Path('.').rglob('*')):
+              if not path.is_file() or any(part in excluded for part in path.parts):
+                  continue
+              rel = path.as_posix()
+              if rel == 'PUBLICATION-CANDIDATE.sha256':
+                  continue
+              digest = hashlib.sha256(path.read_bytes()).hexdigest()
+              print(f'ACTUAL_SHA256={digest}  {rel}')
+          PY
+
       - name: Validate public candidate
         run: python -B -S tools/run_public_validation.py
