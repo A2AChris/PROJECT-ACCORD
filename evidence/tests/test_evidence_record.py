@@ -11,8 +11,9 @@ spec = importlib.util.spec_from_file_location("verify_record", EV / "verify_reco
 vr = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(vr)
 
-HISTORICAL_RECORD = json.loads((EV / "ACCORD-RM01-REFERENCE-EVIDENCE-v0.5.json").read_text(encoding="utf-8"))
-RECORD = json.loads((EV / "ACCORD-RM01-REFERENCE-EVIDENCE-v0.6.json").read_text(encoding="utf-8"))
+HISTORICAL_RECORD_V05 = json.loads((EV / "ACCORD-RM01-REFERENCE-EVIDENCE-v0.5.json").read_text(encoding="utf-8"))
+HISTORICAL_RECORD_V06 = json.loads((EV / "ACCORD-RM01-REFERENCE-EVIDENCE-v0.6.json").read_text(encoding="utf-8"))
+RECORD = json.loads((EV / "ACCORD-RM01-REFERENCE-EVIDENCE-v0.7.json").read_text(encoding="utf-8"))
 
 
 def resign(obj):
@@ -27,14 +28,33 @@ class EvidenceRecordP8Tests(unittest.TestCase):
         vr.validate_record(RECORD)
 
     def test_historical_v05_record_is_preserved(self):
-        self.assertEqual(HISTORICAL_RECORD["record_id"], "ACCORD-EVIDENCE-RM01-v0.5")
+        self.assertEqual(HISTORICAL_RECORD_V05["record_id"], "ACCORD-EVIDENCE-RM01-v0.5")
         self.assertEqual(
-            HISTORICAL_RECORD["claim_binding"]["evidenced_public_claim"],
+            HISTORICAL_RECORD_V05["claim_binding"]["evidenced_public_claim"],
             {"id": "ACCORD-C05", "revision": "v0.2"},
         )
         self.assertEqual(
-            HISTORICAL_RECORD["integrity"]["record_sha256"],
+            HISTORICAL_RECORD_V05["integrity"]["record_sha256"],
             "38ee75805375d1331b4988ddec8c63a65e678031e6bab268874335a42400f5c0",
+        )
+
+    def test_historical_v06_record_is_preserved(self):
+        self.assertEqual(HISTORICAL_RECORD_V06["record_id"], "ACCORD-EVIDENCE-RM01-v0.6")
+        self.assertEqual(
+            HISTORICAL_RECORD_V06["claim_binding"]["evidenced_public_claim"],
+            {"id": "ACCORD-C05", "revision": "v0.3"},
+        )
+        self.assertEqual(HISTORICAL_RECORD_V06["public_reference"]["status"], "PROVISIONALLY_FROZEN")
+        self.assertEqual(
+            HISTORICAL_RECORD_V06["integrity"]["record_sha256"],
+            "c893bd644e9dd58c221c53ac92c8e8e82de218fe315f6aea8082572069dae258",
+        )
+
+    def test_current_record_is_v07(self):
+        self.assertEqual(RECORD["record_id"], "ACCORD-EVIDENCE-RM01-v0.7")
+        self.assertEqual(
+            RECORD["integrity"]["record_sha256"],
+            "a7dee3986896e98bc722747e8b9ab9e4bff1d65baf9c59391e69fec30354b297",
         )
 
     def test_digest_recomputes(self):
@@ -46,6 +66,33 @@ class EvidenceRecordP8Tests(unittest.TestCase):
         commitment = ref["private_reference_commitment"]
         self.assertEqual(commitment["algorithm"], "SHA-256")
         self.assertEqual(len(commitment["commitment"]), 64)
+
+    def test_public_reference_status_is_record_lifecycle_metadata(self):
+        self.assertEqual(RECORD["public_reference"]["status"], "PROVISIONALLY_FROZEN")
+        qualification = RECORD["evidence_classification"]["qualification"]
+        self.assertIn("public_reference.status value is record-lifecycle metadata", qualification)
+        self.assertIn(
+            "does not classify the historical execution lineage as provisional, committed, executed, effective, or final",
+            qualification,
+        )
+        self.assertIn(
+            "PROVISIONALLY_FROZEN public-reference status means that the historical execution lineage is provisional or uncommitted.",
+            RECORD["forbidden_inferences"],
+        )
+        self.assertIn(
+            "FROZEN public-reference status is required for the C05 term 'committed' to apply to the historical execution lineage.",
+            RECORD["forbidden_inferences"],
+        )
+
+    def test_missing_status_semantic_separation_is_rejected(self):
+        r = copy.deepcopy(RECORD)
+        r["evidence_classification"]["qualification"] = r["evidence_classification"]["qualification"].replace(
+            "The public_reference.status value is record-lifecycle metadata; it does not classify the historical execution lineage as provisional, committed, executed, effective, or final. ",
+            "",
+        )
+        r = resign(r)
+        with self.assertRaises(vr.RecordError):
+            vr.validate_record(r)
 
     def test_evidence_binds_only_c05(self):
         self.assertEqual(
