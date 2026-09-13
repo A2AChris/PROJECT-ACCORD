@@ -53,6 +53,20 @@ def base_receipt(
     return record
 
 
+def reviewer(
+    identifier="A2AChris",
+    relationship="PROJECT",
+    position="NOT_CONFIRMED",
+):
+    return {
+        "identifier": identifier,
+        "relationship": relationship,
+        "position": position,
+        "rationale": "Reviewer rationale.",
+        "evidence_references": [],
+    }
+
+
 def base_record(
     adjudication_id="ACCORD-ADJ-TEST001",
     disposition="NOT_CONFIRMED",
@@ -73,15 +87,13 @@ def base_record(
             "https://github.com/A2AChris/PROJECT-ACCORD/issues/999"
         )
     return {
-        "schema": "accord.challenge-adjudication-record.v0.2",
+        "schema": "accord.challenge-adjudication-record.v0.3",
         "adjudication_id": adjudication_id,
         "challenge": challenge,
         "claim": claim,
         "review_provenance": {
             "review_class": "PROJECT_ADJUDICATED",
-            "reviewers": [
-                {"identifier": "A2AChris", "relationship": "PROJECT"}
-            ],
+            "reviewers": [reviewer(position=disposition)],
         },
         "decision_authority": {
             "class": "PROJECT_MAINTAINER",
@@ -94,6 +106,7 @@ def base_record(
             "basis": "Public test rationale.",
             "public_rule_references": ["CLAIMS.md#accord-c05"],
             "evidence_references": [],
+            "dissent_responses": [],
             "falsification_analysis": "The test record does not establish C05-F1.",
         },
     }
@@ -204,7 +217,11 @@ class AdjudicationGovernanceTests(unittest.TestCase):
         record["review_provenance"] = {
             "review_class": "EXTERNAL_INDEPENDENT",
             "reviewers": [
-                {"identifier": "external-reviewer", "relationship": "EXTERNAL"}
+                reviewer(
+                    identifier="external-reviewer",
+                    relationship="EXTERNAL",
+                    position="NOT_CONFIRMED",
+                )
             ],
         }
         with self.assertRaises(adj.AdjudicationError):
@@ -213,6 +230,82 @@ class AdjudicationGovernanceTests(unittest.TestCase):
     def test_multi_party_requires_two_reviewers(self):
         record = base_record()
         record["review_provenance"]["review_class"] = "MULTI_PARTY_REVIEWED"
+        with self.assertRaises(adj.AdjudicationError):
+            adj.validate_record(record, self.entries, self.receipts)
+
+    def test_reviewer_position_requires_rationale(self):
+        record = base_record()
+        del record["review_provenance"]["reviewers"][0]["rationale"]
+        with self.assertRaises(adj.AdjudicationError):
+            adj.validate_record(record, self.entries, self.receipts)
+
+    def test_reviewer_confirmed_contract_gap_requires_novel_challenge(self):
+        record = base_record()
+        record["review_provenance"]["reviewers"][0]["position"] = (
+            "CONFIRMED_CONTRACT_GAP"
+        )
+        record["decision_detail"]["dissent_responses"] = [
+            {
+                "reviewer_identifier": "A2AChris",
+                "response": "The registered challenge cannot be a contract-gap confirmation.",
+            }
+        ]
+        with self.assertRaises(adj.AdjudicationError):
+            adj.validate_record(record, self.entries, self.receipts)
+
+    def test_external_reviewer_dissent_requires_exact_response(self):
+        record = base_record()
+        record["review_provenance"] = {
+            "review_class": "EXTERNAL_INDEPENDENT",
+            "reviewers": [
+                reviewer(
+                    identifier="external-reviewer",
+                    relationship="EXTERNAL",
+                    position="CONFIRMED_FALSIFICATION",
+                )
+            ],
+            "independence_basis": "No project affiliation.",
+        }
+        with self.assertRaises(adj.AdjudicationError):
+            adj.validate_record(record, self.entries, self.receipts)
+
+    def test_external_reviewer_dissent_is_preserved_when_response_present(self):
+        record = base_record()
+        record["review_provenance"] = {
+            "review_class": "EXTERNAL_INDEPENDENT",
+            "reviewers": [
+                reviewer(
+                    identifier="external-reviewer",
+                    relationship="EXTERNAL",
+                    position="CONFIRMED_FALSIFICATION",
+                )
+            ],
+            "independence_basis": "No project affiliation.",
+        }
+        record["decision_detail"]["dissent_responses"] = [
+            {
+                "reviewer_identifier": "external-reviewer",
+                "response": (
+                    "The maintainer does not confirm C05-F1 because the cited material "
+                    "does not establish the registered falsification condition."
+                ),
+            }
+        ]
+        adj.validate_record(record, self.entries, self.receipts)
+
+    def test_abstain_does_not_require_dissent_response(self):
+        record = base_record()
+        record["review_provenance"]["reviewers"][0]["position"] = "ABSTAIN"
+        adj.validate_record(record, self.entries, self.receipts)
+
+    def test_spurious_dissent_response_is_rejected(self):
+        record = base_record()
+        record["decision_detail"]["dissent_responses"] = [
+            {
+                "reviewer_identifier": "A2AChris",
+                "response": "There is no actual dissent to answer.",
+            }
+        ]
         with self.assertRaises(adj.AdjudicationError):
             adj.validate_record(record, self.entries, self.receipts)
 
