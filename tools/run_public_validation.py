@@ -99,28 +99,52 @@ def verify_text_and_json() -> None:
                 fail(f"invalid JSON: {rel}: {exc}")
 
 
-
 def verify_schema_contracts() -> int:
     claim_schema = ROOT / "claims" / "public-claim-index.schema.json"
+    claim_state_schema = ROOT / "claims" / "public-claim-state.schema.json"
     challenge_schema = ROOT / "challenge" / "fixtures" / "fixture.schema.json"
+    adjudication_index_schema = (
+        ROOT / "challenge" / "adjudications" / "index.schema.json"
+    )
+    adjudication_record_schema = (
+        ROOT / "challenge" / "adjudications" / "adjudication-record.schema.json"
+    )
     evidence_schema = ROOT / "evidence" / "evidence-record.schema.json"
 
     targets = [
         (ROOT / "claims" / "public-claim-index.json", claim_schema),
+        (ROOT / "claims" / "public-claim-state.json", claim_state_schema),
         (ROOT / "challenge" / "fixtures" / "template.json", challenge_schema),
-        (ROOT / "evidence" / "ACCORD-RM01-REFERENCE-EVIDENCE-v0.5.json", evidence_schema),
+        (
+            ROOT / "challenge" / "adjudications" / "index.json",
+            adjudication_index_schema,
+        ),
+        (
+            ROOT / "evidence" / "ACCORD-RM01-REFERENCE-EVIDENCE-v0.5.json",
+            evidence_schema,
+        ),
     ]
     targets.extend(
         (fixture, challenge_schema)
         for fixture in sorted((ROOT / "challenge" / "fixtures" / "examples").glob("*.json"))
+    )
+    targets.extend(
+        (record, adjudication_record_schema)
+        for record in sorted(
+            (ROOT / "challenge" / "adjudications" / "records").glob("*.json")
+        )
     )
 
     for instance_path, schema_path in targets:
         try:
             validate_paths(instance_path, schema_path)
         except SchemaContractError as exc:
-            fail(f"schema contract failed for {instance_path.relative_to(ROOT).as_posix()}: {exc}")
+            fail(
+                "schema contract failed for "
+                f"{instance_path.relative_to(ROOT).as_posix()}: {exc}"
+            )
     return len(targets)
+
 
 def run_command(args: list[str], cwd: Path = ROOT) -> str:
     env = os.environ.copy()
@@ -154,7 +178,13 @@ def verify_challenge_examples() -> int:
     count = 0
     for fixture in sorted((ROOT / "challenge" / "fixtures" / "examples").glob("*.json")):
         output = run_command(
-            [sys.executable, "-B", "-S", "challenge/harness.py", fixture.relative_to(ROOT).as_posix()]
+            [
+                sys.executable,
+                "-B",
+                "-S",
+                "challenge/harness.py",
+                fixture.relative_to(ROOT).as_posix(),
+            ]
         )
         if "status = WELL_FORMED_CHALLENGE_SUBMISSION" not in output:
             fail(f"unexpected challenge status for {fixture.name}")
@@ -195,6 +225,15 @@ def main() -> int:
     schema_tests = run_unittest_suite("schema/tests")
     example_count = verify_challenge_examples()
 
+    adjudication_check = run_command(
+        [sys.executable, "-B", "-S", "challenge/adjudication.py"]
+    )
+    print(adjudication_check, end="")
+    if "ADJUDICATION_GOVERNANCE_CHECK=PASS" not in adjudication_check:
+        fail("public adjudication governance self-check did not pass")
+    if "PRIVATE_REFERENCE_VERIFICATION=NOT_PERFORMED" not in adjudication_check:
+        fail("adjudication governance check exceeded its declared boundary")
+
     self_check = run_command(
         [sys.executable, "-B", "-S", "evidence/verify_record.py"]
     )
@@ -205,7 +244,7 @@ def main() -> int:
         fail("public evidence self-check exceeded its declared boundary")
 
     total_tests = claim_tests + challenge_tests + evidence_tests + schema_tests
-    print(f"PUBLIC_VALIDATION=PASS")
+    print("PUBLIC_VALIDATION=PASS")
     print(f"PYTHON={platform.python_version()}")
     print(f"PLATFORM={platform.system()}")
     print(f"CLAIM_TESTS={claim_tests}")
