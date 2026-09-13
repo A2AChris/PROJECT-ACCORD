@@ -1,0 +1,63 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://project-accord.example/schema/public-claim-state.v0.1.json",
+  "title": "PROJECT ACCORD public claim revision-state registry",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "contract_revision",
+    "entries"
+  ],
+  "properties": {
+    "schema": {
+      "const": "accord.public-claim-state.v0.1"
+    },
+    "contract_revision": {
+      "const": "v0.1"
+    },
+    "entries": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "revision",
+          "falsification_ids",
+          "publication_state"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^ACCORD-C[0-9]{2}$"
+          },
+          "revision": {
+            "type": "string",
+            "pattern": "^v[0-9]+\\.[0-9]+$"
+          },
+          "falsification_ids": {
+            "type": "array",
+            "minItems": 1,
+            "uniqueItems": true,
+            "items": {
+              "type": "string",
+              "pattern": "^C[0-9]{2}-F[1-9][0-9]*$"
+            }
+          },
+          "publication_state": {
+            "type": "string",
+            "enum": [
+              "PUBLISHED",
+              "SUSPENDED",
+              "WITHDRAWN",
+              "SUPERSEDED"
+            ]
+          }
+        }
+      }
+    }
+  }
+}
