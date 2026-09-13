@@ -97,6 +97,13 @@ actually in scope, or whether a claim has been falsified.
 Generic attack tags are organizational metadata. They do not restrict which mechanism may
 be used to challenge a claim.
 
+Completed substantive challenge decisions are governed by
+[`challenge/ADJUDICATION-CONTRACT.md`](challenge/ADJUDICATION-CONTRACT.md) and registered
+under [`challenge/adjudications/`](challenge/adjudications/). Mechanical validation,
+substantive adjudication, and claim publication state remain distinct. A
+`CONFIRMED_FALSIFICATION` requires a public consequence for the affected claim revision;
+the same affected revision must not remain `PUBLISHED`.
+
 ## Reproduction levels
 
 - **R0 — PROJECT-ATTESTED:** bounded project attestation to a private reference.
@@ -150,9 +157,14 @@ PROJECT-ACCORD/
 ├── CONTRIBUTING.md
 ├── claims/
 │   ├── public-claim-index.json
-│   └── public-claim-index.schema.json
+│   ├── public-claim-index.schema.json
+│   ├── public-claim-state.json
+│   └── public-claim-state.schema.json
 ├── docs/
 ├── challenge/
+│   ├── ATTACK-CONTRACT.md
+│   ├── ADJUDICATION-CONTRACT.md
+│   └── adjudications/
 ├── evidence/
 └── tests/
 ```
@@ -257,6 +269,13 @@ tatsächlich im Scope liegt oder ein Claim falsifiziert wurde.
 Generische Attack Tags sind nur Ordnungsmetadaten. Sie beschränken nicht, mit welchem
 Mechanismus ein Claim angegriffen werden darf.
 
+Abgeschlossene inhaltliche Challenge-Entscheidungen werden durch
+[`challenge/ADJUDICATION-CONTRACT.md`](challenge/ADJUDICATION-CONTRACT.md) geregelt und
+unter [`challenge/adjudications/`](challenge/adjudications/) registriert. Mechanische
+Validierung, inhaltliche Adjudication und der Publication State eines Claims bleiben
+getrennt. Eine `CONFIRMED_FALSIFICATION` erfordert eine öffentliche Konsequenz für die
+betroffene Claim Revision; dieselbe betroffene Revision darf nicht `PUBLISHED` bleiben.
+
 ## Reproduction Levels
 
 - **R0 — PROJECT-ATTESTED:** begrenzte Projekt-Attestation auf eine private Referenz.
@@ -310,9 +329,14 @@ PROJECT-ACCORD/
 ├── CONTRIBUTING.md
 ├── claims/
 │   ├── public-claim-index.json
-│   └── public-claim-index.schema.json
+│   ├── public-claim-index.schema.json
+│   ├── public-claim-state.json
+│   └── public-claim-state.schema.json
 ├── docs/
 ├── challenge/
+│   ├── ATTACK-CONTRACT.md
+│   ├── ADJUDICATION-CONTRACT.md
+│   └── adjudications/
 ├── evidence/
 └── tests/
 ```
