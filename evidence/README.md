@@ -28,6 +28,23 @@ cannot, by itself, establish that R1 is presently in effect.
 C05 depends semantically on C03 and C04, but that dependency does not make the RM01
 record independent evidence for C03 or C04 as general claims.
 
+## R0 non-verification semantics
+
+R0 records are project attestations. Public inability to independently verify the private
+reference material limits the public evidence and reproduction level; it does **not**, by
+itself, establish that a registered falsification condition occurred.
+
+In particular, `PRIVATE_REFERENCE_OPENING=NOT_PERFORMED` or
+`REFERENCE_VERIFICATION=NOT_PERFORMED` must not be promoted into a positive conclusion
+that `C05-F8` occurred. C05-F8 requires evidence supporting an actual material evidence
+exclusion, inclusion, or reclassification and the alleged result-dependent reason for
+that treatment.
+
+This does not assert that result-dependent admission is impossible. It states only that
+non-verification and falsification are different propositions. A challenge alleging
+result-dependent admission remains eligible for substantive review under the public
+challenge lifecycle.
+
 ## Project-attested CI summary
 
 The record attests:
