@@ -11,6 +11,7 @@ spec = importlib.util.spec_from_file_location("verify_record", EV / "verify_reco
 vr = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(vr)
 
+HISTORICAL_RECORD = json.loads((EV / "ACCORD-RM01-REFERENCE-EVIDENCE-v0.5.json").read_text(encoding="utf-8"))
 RECORD = json.loads((EV / "ACCORD-RM01-REFERENCE-EVIDENCE-v0.6.json").read_text(encoding="utf-8"))
 
 
@@ -24,6 +25,17 @@ def resign(obj):
 class EvidenceRecordP8Tests(unittest.TestCase):
     def test_baseline_valid(self):
         vr.validate_record(RECORD)
+
+    def test_historical_v05_record_is_preserved(self):
+        self.assertEqual(HISTORICAL_RECORD["record_id"], "ACCORD-EVIDENCE-RM01-v0.5")
+        self.assertEqual(
+            HISTORICAL_RECORD["claim_binding"]["evidenced_public_claim"],
+            {"id": "ACCORD-C05", "revision": "v0.2"},
+        )
+        self.assertEqual(
+            HISTORICAL_RECORD["integrity"]["record_sha256"],
+            "38ee75805375d1331b4988ddec8c63a65e678031e6bab268874335a42400f5c0",
+        )
 
     def test_digest_recomputes(self):
         self.assertEqual(vr.canonical_digest(RECORD), RECORD["integrity"]["record_sha256"])
