@@ -37,7 +37,7 @@ source release or architectural blueprint of the private reference implementatio
 | `ACCORD-C02 v0.2` | Rooted and Conserved Authority | no C02-specific public reference evidence attached |
 | `ACCORD-C03 v0.2` | Authorization / Execution / Effect Separation | semantic dependency of RM01, not independently evidenced by RM01 |
 | `ACCORD-C04 v0.2` | Bounded Historical Reconstruction Discipline | semantic dependency of RM01, not independently evidenced by RM01 |
-| `ACCORD-C05 v0.2` | Bounded Historical Execution Lineage | **R0 — PROJECT-ATTESTED via ACCORD-RM01** |
+| `ACCORD-C05 v0.3` | Bounded Historical Execution Lineage | **R0 — PROJECT-ATTESTED via ACCORD-RM01** |
 
 The complete claim contract is [`CLAIMS.md`](CLAIMS.md).
 
@@ -68,8 +68,8 @@ Status: **PROVISIONALLY FROZEN**
 
 Evidence level: **R0 — PROJECT-ATTESTED**
 
-The evidence package intentionally does not claim public reproduction of the private
-implementation.
+The current evidence record is bound to **ACCORD-C05 v0.3**. The evidence package
+intentionally does not claim public reproduction of the private implementation.
 
 See [`evidence/`](evidence/).
 
@@ -121,9 +121,15 @@ the affected claim revision; the same affected revision must not remain `PUBLISH
 
 - **R0 — PROJECT-ATTESTED:** bounded project attestation to a private reference.
 - **R1 — PUBLICLY CHALLENGEABLE:** public claim and challenge surface permit structured
-  external counterexamples.
+  external counterexamples and contract-gap hypotheses.
 - **R2 — PUBLICLY REPRODUCIBLE:** the relevant verification can be independently executed
   without private access.
+
+The current public claim, intake, lifecycle, and adjudication surface satisfies the R1
+publication condition while those artifacts remain publicly accessible. R1 does **not**
+imply public execution access to, simulation of, public trace generation from, or
+independent reproduction of the private reference implementation. External empirical
+generation of private-reference traces is not currently claimed.
 
 These levels must not be collapsed.
 
@@ -222,7 +228,7 @@ Es ist weder Source Release noch Architekturplan der privaten Referenzimplementi
 | `ACCORD-C02 v0.2` | Rooted and Conserved Authority | keine C02-spezifische Public Reference Evidence |
 | `ACCORD-C03 v0.2` | Authorization / Execution / Effect Separation | semantische RM01-Abhängigkeit, durch RM01 nicht eigenständig evidenziert |
 | `ACCORD-C04 v0.2` | Bounded Historical Reconstruction Discipline | semantische RM01-Abhängigkeit, durch RM01 nicht eigenständig evidenziert |
-| `ACCORD-C05 v0.2` | Bounded Historical Execution Lineage | **R0 — PROJECT-ATTESTED via ACCORD-RM01** |
+| `ACCORD-C05 v0.3` | Bounded Historical Execution Lineage | **R0 — PROJECT-ATTESTED via ACCORD-RM01** |
 
 Der vollständige Claim Contract steht in [`CLAIMS.md`](CLAIMS.md).
 
@@ -255,8 +261,8 @@ Status: **PROVISIONALLY FROZEN**
 
 Evidence Level: **R0 — PROJECT-ATTESTED**
 
-Das Evidence Package behauptet ausdrücklich keine öffentliche Reproduktion der privaten
-Implementierung.
+Der aktuelle Evidence Record ist an **ACCORD-C05 v0.3** gebunden. Das Evidence Package
+behauptet ausdrücklich keine öffentliche Reproduktion der privaten Implementierung.
 
 Siehe [`evidence/`](evidence/).
 
@@ -312,9 +318,16 @@ Revision; dieselbe betroffene Revision darf nicht `PUBLISHED` bleiben.
 
 - **R0 — PROJECT-ATTESTED:** begrenzte Projekt-Attestation auf eine private Referenz.
 - **R1 — PUBLICLY CHALLENGEABLE:** öffentliche Claims und Challenge Surface erlauben
-  strukturierte externe Gegenbeispiele.
+  strukturierte externe Gegenbeispiele und Contract-Gap-Hypothesen.
 - **R2 — PUBLICLY REPRODUCIBLE:** die relevante Verification kann ohne privaten Zugriff
   unabhängig ausgeführt werden.
+
+Der aktuelle öffentliche Claim-, Intake-, Lifecycle- und Adjudication-Surface erfüllt die
+R1-Publication-Bedingung, solange diese Artefakte öffentlich zugänglich bleiben. R1
+bedeutet **nicht** öffentlichen Execution-Zugriff auf, Simulation von, öffentliche
+Trace-Erzeugung aus oder unabhängige Reproduktion der privaten Referenzimplementierung.
+Eine externe empirische Erzeugung von Private-Reference-Traces wird derzeit nicht
+behauptet.
 
 Diese Ebenen dürfen nicht miteinander verschmolzen werden.
 
