@@ -32,7 +32,7 @@
   "evidence_classification": {
     "reference_evidence_level": "R0_PROJECT_ATTESTED",
     "public_reproduction_level": "NOT_CLAIMED",
-    "qualification": "This provisionally frozen public evidence record attests that a structured public challenge contract is included in the PROJECT ACCORD public-surface artifact. The public_reference.status value is record-lifecycle metadata; it does not classify the historical execution lineage as provisional, committed, executed, effective, or final. It does not itself attest current repository visibility or independently establish that R1 is presently in effect. Under the public claim contract, R1 means structured public challengeability and does not imply public execution access to, simulation of, public trace generation from, or independent reproduction of the private reference implementation. External empirical generation of private-reference traces is not currently claimed. The underlying reference implementation and detailed CI evidence remain private. This sanitized record is a project attestation, not independent public reproduction.",
+    "qualification": "This provisionally frozen public evidence record attests that a structured public challenge contract is included in the PROJECT ACCORD public-surface artifact. The public_reference.status value is record-lifecycle metadata; by itself it does not classify the historical execution lineage as provisional, committed, executed, effective, or final and does not determine whether the C05 lineage proposition is supported. It does not itself attest current repository visibility or independently establish that R1 is presently in effect. Under the public claim contract, R1 means structured public challengeability and does not imply public execution access to, simulation of, public trace generation from, or independent reproduction of the private reference implementation. External empirical generation of private-reference traces is not currently claimed. The underlying reference implementation and detailed CI evidence remain private. This sanitized record is a project attestation, not independent public reproduction.",
     "public_challenge_contract": "STRUCTURED_COUNTEREXAMPLE_SURFACE_PRESENT"
   },
   "ci_summary": {
@@ -88,7 +88,7 @@
     "Successful project-attested CI proves ACCORD-C05 universally.",
     "This record alone establishes that the repository is currently public or that R1 is presently in effect.",
     "PROVISIONALLY_FROZEN public-reference status means that the historical execution lineage is provisional or uncommitted.",
-    "FROZEN public-reference status is required for the C05 term 'committed' to apply to the historical execution lineage."
+    "The public_reference.status field, by itself, determines whether the C05 historical-lineage proposition is supported."
   ],
   "withheld_material": [
     "private repository and engineering identifiers",
@@ -100,6 +100,6 @@
   ],
   "integrity": {
     "record_canonicalization": "UTF-8 JSON, sorted keys, separators=(',', ':'), digest field null during hashing",
-    "record_sha256": "a7dee3986896e98bc722747e8b9ab9e4bff1d65baf9c59391e69fec30354b297"
+    "record_sha256": "636517435db9c269936821f10099aa790bc741c3b7a888ecd461f0659180f551"
   }
 }
