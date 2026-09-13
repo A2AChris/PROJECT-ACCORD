@@ -29,13 +29,13 @@ class PublicChallengeHarnessP8Tests(unittest.TestCase):
 
     def test_claim_revision_and_falsification_id_are_registry_bound(self):
         doc = load("ACCORD-C05-lineage-ambiguity.json")
-        self.assertEqual(doc["claim"]["revision"], "v0.2")
+        self.assertEqual(doc["claim"]["revision"], "v0.3")
         self.assertEqual(doc["claim"]["falsification_id"], "C05-F4")
         self.assertEqual(h.validate_fixture(doc)["falsification_id"], "C05-F4")
 
     def test_stale_claim_revision_rejected(self):
         doc = load("ACCORD-C05-lineage-ambiguity.json")
-        doc["claim"]["revision"] = "v0.1"
+        doc["claim"]["revision"] = "v0.2"
         with self.assertRaises(h.ValidationError):
             h.validate_fixture(doc)
 

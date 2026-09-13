@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "urn:project-accord:schema:public-claim-index:v0.2",
-  "title": "PROJECT ACCORD Public Claim Index v0.2",
+  "$id": "urn:project-accord:schema:public-claim-index:v0.3",
+  "title": "PROJECT ACCORD Public Claim Index v0.3",
   "type": "object",
   "additionalProperties": false,
   "required": [
@@ -11,10 +11,10 @@
   ],
   "properties": {
     "schema": {
-      "const": "accord.public-claim-index.v0.2"
+      "const": "accord.public-claim-index.v0.3"
     },
     "contract_revision": {
-      "const": "v0.2"
+      "const": "v0.3"
     },
     "claims": {
       "type": "object",
@@ -174,7 +174,7 @@
           ],
           "properties": {
             "revision": {
-              "const": "v0.2"
+              "const": "v0.3"
             },
             "title": {
               "type": "string",

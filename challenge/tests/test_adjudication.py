@@ -30,7 +30,7 @@ def base_receipt(
     challenge_type="REGISTERED_FALSIFICATION",
     status="COMPLETED",
 ):
-    claim = {"id": "ACCORD-C05", "revision": "v0.2"}
+    claim = {"id": "ACCORD-C05", "revision": "v0.3"}
     record = {
         "receipt_id": receipt_id,
         "canonical_sha256": "a" * 64,
@@ -59,7 +59,7 @@ def base_record(
     challenge_type="REGISTERED_FALSIFICATION",
     visibility="PUBLIC",
 ):
-    claim = {"id": "ACCORD-C05", "revision": "v0.2"}
+    claim = {"id": "ACCORD-C05", "revision": "v0.3"}
     challenge = {
         "canonical_sha256": "a" * 64,
         "challenge_type": challenge_type,
@@ -110,7 +110,16 @@ class AdjudicationGovernanceTests(unittest.TestCase):
         self.receipts = adj.validate_receipts(receipt_index, self.entries)
 
     def test_current_claim_index_is_bound_to_revision_state_registry(self):
-        self.assertEqual(len(self.entries), len(CLAIM_INDEX["claims"]))
+        for claim_id, current in CLAIM_INDEX["claims"].items():
+            self.assertIn((claim_id, current["revision"]), self.entries)
+        self.assertEqual(
+            self.entries[("ACCORD-C05", "v0.2")]["publication_state"],
+            "SUPERSEDED",
+        )
+        self.assertEqual(
+            self.entries[("ACCORD-C05", "v0.3")]["publication_state"],
+            "PUBLISHED",
+        )
 
     def test_registered_receipt_requires_published_falsification_id(self):
         receipt = base_receipt()
@@ -265,7 +274,7 @@ class AdjudicationGovernanceTests(unittest.TestCase):
         record["consequence"] = {
             "action": "CLAIM_SUSPENDED",
             "claim_id": "ACCORD-C05",
-            "claim_revision": "v0.2",
+            "claim_revision": "v0.3",
         }
         with self.assertRaises(adj.AdjudicationError):
             adj.validate_record(record, self.entries, self.receipts)

@@ -34,7 +34,7 @@ class PublicSchemaContractTests(unittest.TestCase):
                 ROOT / "challenge" / "adjudications" / "index.schema.json",
             ),
             (
-                ROOT / "evidence" / "ACCORD-RM01-REFERENCE-EVIDENCE-v0.5.json",
+                ROOT / "evidence" / "ACCORD-RM01-REFERENCE-EVIDENCE-v0.6.json",
                 ROOT / "evidence" / "evidence-record.schema.json",
             ),
         ]

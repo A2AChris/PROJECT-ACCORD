@@ -11,7 +11,7 @@ spec = importlib.util.spec_from_file_location("verify_record", EV / "verify_reco
 vr = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(vr)
 
-RECORD = json.loads((EV / "ACCORD-RM01-REFERENCE-EVIDENCE-v0.5.json").read_text(encoding="utf-8"))
+RECORD = json.loads((EV / "ACCORD-RM01-REFERENCE-EVIDENCE-v0.6.json").read_text(encoding="utf-8"))
 
 
 def resign(obj):
@@ -38,7 +38,7 @@ class EvidenceRecordP8Tests(unittest.TestCase):
     def test_evidence_binds_only_c05(self):
         self.assertEqual(
             RECORD["claim_binding"]["evidenced_public_claim"],
-            {"id": "ACCORD-C05", "revision": "v0.2"},
+            {"id": "ACCORD-C05", "revision": "v0.3"},
         )
 
     def test_c03_c04_are_dependencies_not_evidenced_claims(self):
@@ -67,9 +67,19 @@ class EvidenceRecordP8Tests(unittest.TestCase):
             "STRUCTURED_COUNTEREXAMPLE_SURFACE_PRESENT",
         )
         self.assertNotIn("public_challenge_level", classification)
-        self.assertIn("does not attest current repository visibility", classification["qualification"])
+        self.assertIn("does not itself attest current repository visibility", classification["qualification"])
         self.assertIn(
             "This record alone establishes that the repository is currently public or that R1 is presently in effect.",
+            RECORD["forbidden_inferences"],
+        )
+
+    def test_r1_does_not_imply_private_reference_execution_access(self):
+        qualification = RECORD["evidence_classification"]["qualification"]
+        self.assertIn("R1 means structured public challengeability", qualification)
+        self.assertIn("public trace generation", qualification)
+        self.assertIn("External empirical generation of private-reference traces is not currently claimed.", qualification)
+        self.assertIn(
+            "R1 implies public execution access to, simulation of, or public trace generation from the private reference implementation.",
             RECORD["forbidden_inferences"],
         )
 

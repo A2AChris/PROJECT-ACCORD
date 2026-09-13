@@ -8,13 +8,22 @@ This directory contains sanitized public evidence records.
 
 Evidence level: **R0 — PROJECT-ATTESTED**
 
-The current record is attached to **ACCORD-C05 v0.2 only**.
+The current record is attached to **ACCORD-C05 v0.3 only**.
 
 ## Challenge availability
 
-The record attests that the structured challenge contract is present in the public-surface
-artifact. It does not attest current repository visibility. **R1 — PUBLICLY CHALLENGEABLE**
-applies only while that surface is actually publicly accessible.
+The current public repository exposes the claim, intake, lifecycle, and adjudication
+surface required for **R1 — PUBLICLY CHALLENGEABLE**. R1 means that structured external
+counterexamples and novel falsification hypotheses can be submitted against the public
+contract. It does **not** imply public execution access to, simulation of, public trace
+generation from, or independent reproduction of the private reference implementation.
+
+External empirical generation of private-reference traces is not currently claimed.
+That limitation is distinct from R1 and is part of the boundary between R1 and
+**R2 — PUBLICLY REPRODUCIBLE**.
+
+The evidence record itself does not attest current repository visibility and therefore
+cannot, by itself, establish that R1 is presently in effect.
 
 C05 depends semantically on C03 and C04, but that dependency does not make the RM01
 record independent evidence for C03 or C04 as general claims.

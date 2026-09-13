@@ -3,7 +3,7 @@
   "challenge_id": "ACCORD-CHALLENGE-EXAMPLE",
   "claim": {
     "id": "ACCORD-C05",
-    "revision": "v0.2",
+    "revision": "v0.3",
     "falsification_id": "C05-F1"
   },
   "attack": {

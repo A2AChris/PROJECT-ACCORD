@@ -1,6 +1,6 @@
 {
-  "schema": "accord.public-claim-index.v0.2",
-  "contract_revision": "v0.2",
+  "schema": "accord.public-claim-index.v0.3",
+  "contract_revision": "v0.3",
   "claims": {
     "ACCORD-C01": {
       "revision": "v0.2",
@@ -46,7 +46,7 @@
       "public_evidence_status": "SEMANTIC_DEPENDENCY_OF_RM01_NOT_INDEPENDENTLY_EVIDENCED_BY_RM01"
     },
     "ACCORD-C05": {
-      "revision": "v0.2",
+      "revision": "v0.3",
       "title": "Bounded Historical Execution Lineage",
       "falsification_ids": [
         "C05-F1",

@@ -16,8 +16,8 @@ class PublicClaimContractTests(unittest.TestCase):
         )
 
     def test_contract_revision_matches(self):
-        self.assertEqual(INDEX["contract_revision"], "v0.2")
-        self.assertIn("**Public contract revision:** `v0.2`", CLAIMS_MD)
+        self.assertEqual(INDEX["contract_revision"], "v0.3")
+        self.assertIn("**Public contract revision:** `v0.3`", CLAIMS_MD)
 
     def test_each_claim_and_revision_appear_in_prose_contract(self):
         for claim_id, entry in INDEX["claims"].items():
@@ -48,6 +48,20 @@ class PublicClaimContractTests(unittest.TestCase):
         self.assertIn("sufficiency", c05)
         self.assertIn("is not assumed", c05)
         self.assertIn("Those are conditions the positive assertion", c05)
+
+    def test_c05_r1_is_challengeability_not_private_execution_access(self):
+        c05 = re.search(r"# ACCORD-C05\b.*?(?=\n# Cross-claim|\Z)", CLAIMS_MD, re.S).group(0)
+        normalized = " ".join(c05.split())
+        self.assertIn("R1 — PUBLICLY CHALLENGEABLE", normalized)
+        self.assertIn("does not imply public execution access", normalized)
+        self.assertIn("External empirical generation of private-reference traces is not currently claimed.", normalized)
+        self.assertIn("R2 — PUBLICLY REPRODUCIBLE", normalized)
+
+    def test_c05_falsification_surface_is_not_defined_as_trace_only(self):
+        c05 = re.search(r"# ACCORD-C05\b.*?(?=\n# Cross-claim|\Z)", CLAIMS_MD, re.S).group(0)
+        self.assertNotIn("valid in-scope trace", c05)
+        for fid in INDEX["claims"]["ACCORD-C05"]["falsification_ids"]:
+            self.assertIn(f"**{fid} —", c05)
 
     def test_c04_is_profile_bounded_not_universal_future_claim(self):
         c04 = re.search(r"# ACCORD-C04\b.*?(?=\n# ACCORD-C05|\Z)", CLAIMS_MD, re.S).group(0)

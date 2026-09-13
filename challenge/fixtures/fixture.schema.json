@@ -43,7 +43,10 @@
           ]
         },
         "revision": {
-          "const": "v0.2"
+          "enum": [
+            "v0.2",
+            "v0.3"
+          ]
         },
         "falsification_id": {
           "type": "string",
