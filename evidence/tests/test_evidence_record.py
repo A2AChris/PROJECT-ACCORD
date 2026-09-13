@@ -54,7 +54,7 @@ class EvidenceRecordP8Tests(unittest.TestCase):
         self.assertEqual(RECORD["record_id"], "ACCORD-EVIDENCE-RM01-v0.7")
         self.assertEqual(
             RECORD["integrity"]["record_sha256"],
-            "a7dee3986896e98bc722747e8b9ab9e4bff1d65baf9c59391e69fec30354b297",
+            "636517435db9c269936821f10099aa790bc741c3b7a888ecd461f0659180f551",
         )
 
     def test_digest_recomputes(self):
@@ -72,7 +72,7 @@ class EvidenceRecordP8Tests(unittest.TestCase):
         qualification = RECORD["evidence_classification"]["qualification"]
         self.assertIn("public_reference.status value is record-lifecycle metadata", qualification)
         self.assertIn(
-            "does not classify the historical execution lineage as provisional, committed, executed, effective, or final",
+            "by itself it does not classify the historical execution lineage as provisional, committed, executed, effective, or final and does not determine whether the C05 lineage proposition is supported",
             qualification,
         )
         self.assertIn(
@@ -80,14 +80,14 @@ class EvidenceRecordP8Tests(unittest.TestCase):
             RECORD["forbidden_inferences"],
         )
         self.assertIn(
-            "FROZEN public-reference status is required for the C05 term 'committed' to apply to the historical execution lineage.",
+            "The public_reference.status field, by itself, determines whether the C05 historical-lineage proposition is supported.",
             RECORD["forbidden_inferences"],
         )
 
     def test_missing_status_semantic_separation_is_rejected(self):
         r = copy.deepcopy(RECORD)
         r["evidence_classification"]["qualification"] = r["evidence_classification"]["qualification"].replace(
-            "The public_reference.status value is record-lifecycle metadata; it does not classify the historical execution lineage as provisional, committed, executed, effective, or final. ",
+            "The public_reference.status value is record-lifecycle metadata; by itself it does not classify the historical execution lineage as provisional, committed, executed, effective, or final and does not determine whether the C05 lineage proposition is supported. ",
             "",
         )
         r = resign(r)
