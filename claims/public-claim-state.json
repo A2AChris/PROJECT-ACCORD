@@ -1,0 +1,64 @@
+{
+  "schema": "accord.public-claim-state.v0.1",
+  "contract_revision": "v0.1",
+  "entries": [
+    {
+      "id": "ACCORD-C01",
+      "revision": "v0.2",
+      "falsification_ids": [
+        "C01-F1",
+        "C01-F2"
+      ],
+      "publication_state": "PUBLISHED"
+    },
+    {
+      "id": "ACCORD-C02",
+      "revision": "v0.2",
+      "falsification_ids": [
+        "C02-F1",
+        "C02-F2",
+        "C02-F3"
+      ],
+      "publication_state": "PUBLISHED"
+    },
+    {
+      "id": "ACCORD-C03",
+      "revision": "v0.2",
+      "falsification_ids": [
+        "C03-F1",
+        "C03-F2",
+        "C03-F3",
+        "C03-F4"
+      ],
+      "publication_state": "PUBLISHED"
+    },
+    {
+      "id": "ACCORD-C04",
+      "revision": "v0.2",
+      "falsification_ids": [
+        "C04-F1",
+        "C04-F2",
+        "C04-F3",
+        "C04-F4",
+        "C04-F5",
+        "C04-F6"
+      ],
+      "publication_state": "PUBLISHED"
+    },
+    {
+      "id": "ACCORD-C05",
+      "revision": "v0.2",
+      "falsification_ids": [
+        "C05-F1",
+        "C05-F2",
+        "C05-F3",
+        "C05-F4",
+        "C05-F5",
+        "C05-F6",
+        "C05-F7",
+        "C05-F8"
+      ],
+      "publication_state": "PUBLISHED"
+    }
+  ]
+}
