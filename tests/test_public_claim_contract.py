@@ -51,10 +51,11 @@ class PublicClaimContractTests(unittest.TestCase):
 
     def test_c05_r1_is_challengeability_not_private_execution_access(self):
         c05 = re.search(r"# ACCORD-C05\b.*?(?=\n# Cross-claim|\Z)", CLAIMS_MD, re.S).group(0)
-        self.assertIn("R1 — PUBLICLY CHALLENGEABLE", c05)
-        self.assertIn("does not imply public execution access", c05)
-        self.assertIn("External empirical generation of private-reference traces is not currently claimed.", c05)
-        self.assertIn("R2 — PUBLICLY REPRODUCIBLE", c05)
+        normalized = " ".join(c05.split())
+        self.assertIn("R1 — PUBLICLY CHALLENGEABLE", normalized)
+        self.assertIn("does not imply public execution access", normalized)
+        self.assertIn("External empirical generation of private-reference traces is not currently claimed.", normalized)
+        self.assertIn("R2 — PUBLICLY REPRODUCIBLE", normalized)
 
     def test_c05_falsification_surface_is_not_defined_as_trace_only(self):
         c05 = re.search(r"# ACCORD-C05\b.*?(?=\n# Cross-claim|\Z)", CLAIMS_MD, re.S).group(0)
