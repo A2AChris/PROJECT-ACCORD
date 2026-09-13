@@ -29,6 +29,24 @@ Its central question is:
 The public repository is a **claim, falsification, and evidence surface**. It is not a
 source release or architectural blueprint of the private reference implementation.
 
+## Current research maturity and evidence posture
+
+PROJECT ACCORD is an **early public research artifact**. It is not presented as a
+standard, a production-ready system, or an independently validated implementation.
+
+The current public evidence posture is deliberately asymmetric:
+
+- C01 and C02 currently have no claim-specific public reference evidence attached;
+- C03 and C04 are semantic dependencies of RM01 but are not independently evidenced by
+  RM01;
+- C05 currently has **R0 — PROJECT-ATTESTED** evidence via `ACCORD-RM01`; and
+- R1 public challengeability does not raise those implementation-evidence levels. R2
+  independent public reproduction of the private reference is not claimed.
+
+The purpose of this public surface is to expose claim meaning, falsifiers, evidence
+limits, and challenge/adjudication rules to scrutiny without representing unevidenced
+claims as established implementation results.
+
 ## Public claims
 
 | Claim | Public subject | Current public evidence status |
@@ -219,6 +237,24 @@ Die zentrale Frage lautet:
 
 Das öffentliche Repository ist eine **Claim-, Falsification- und Evidence-Oberfläche**.
 Es ist weder Source Release noch Architekturplan der privaten Referenzimplementierung.
+
+## Aktueller Forschungsreife- und Evidence-Stand
+
+PROJECT ACCORD ist ein **frühes öffentliches Forschungsartefakt**. Es wird nicht als
+Standard, produktionsreifes System oder unabhängig validierte Implementierung dargestellt.
+
+Der aktuelle öffentliche Evidence-Stand ist bewusst asymmetrisch:
+
+- C01 und C02 besitzen derzeit keine claim-spezifische Public Reference Evidence;
+- C03 und C04 sind semantische Abhängigkeiten von RM01, werden durch RM01 aber nicht
+  unabhängig evidenziert;
+- C05 besitzt derzeit **R0 — PROJECT-ATTESTED** Evidence über `ACCORD-RM01`; und
+- die öffentliche R1-Challengeability hebt diese Implementation-Evidence-Level nicht an.
+  Eine unabhängige öffentliche R2-Reproduktion der privaten Referenz wird nicht behauptet.
+
+Zweck dieser Public Surface ist es, Claim-Bedeutung, Falsifier, Evidence-Grenzen sowie
+Challenge-/Adjudication-Regeln der Prüfung auszusetzen, ohne nicht evidenzierte Claims als
+nachgewiesene Implementierungsergebnisse darzustellen.
 
 ## Öffentliche Claims
 
