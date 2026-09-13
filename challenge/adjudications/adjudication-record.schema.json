@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://project-accord.example/schema/challenge-adjudication-record.v0.1.json",
+  "$id": "https://project-accord.example/schema/challenge-adjudication-record.v0.2.json",
   "title": "PROJECT ACCORD public challenge adjudication record",
   "type": "object",
   "additionalProperties": false,
@@ -9,15 +9,20 @@
     "adjudication_id",
     "challenge",
     "claim",
-    "review_class",
+    "review_provenance",
+    "decision_authority",
     "disposition",
     "decision_detail"
   ],
   "properties": {
     "schema": {
-      "const": "accord.challenge-adjudication-record.v0.1"
+      "const": "accord.challenge-adjudication-record.v0.2"
     },
     "adjudication_id": {
+      "type": "string",
+      "pattern": "^ACCORD-ADJ-[A-Z0-9][A-Z0-9._-]{2,63}$"
+    },
+    "supersedes": {
       "type": "string",
       "pattern": "^ACCORD-ADJ-[A-Z0-9][A-Z0-9._-]{2,63}$"
     },
@@ -25,17 +30,37 @@
       "type": "object",
       "additionalProperties": false,
       "required": [
-        "canonical_sha256"
+        "canonical_sha256",
+        "challenge_type",
+        "visibility"
       ],
       "properties": {
         "canonical_sha256": {
           "type": "string",
           "pattern": "^[0-9a-f]{64}$"
         },
-        "public_artifact_path": {
+        "challenge_type": {
           "type": "string",
-          "pattern": "^challenge/submissions/[A-Za-z0-9._-]+\\.json$",
-          "maxLength": 240
+          "enum": [
+            "REGISTERED_FALSIFICATION",
+            "NOVEL_FALSIFICATION_HYPOTHESIS"
+          ]
+        },
+        "visibility": {
+          "type": "string",
+          "enum": [
+            "PUBLIC",
+            "CONFIDENTIAL_SECURITY"
+          ]
+        },
+        "receipt_id": {
+          "type": "string",
+          "pattern": "^ACCORD-RCP-[A-Z0-9][A-Z0-9._-]{2,63}$"
+        },
+        "public_locator": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 500
         }
       }
     },
@@ -44,8 +69,7 @@
       "additionalProperties": false,
       "required": [
         "id",
-        "revision",
-        "falsification_id"
+        "revision"
       ],
       "properties": {
         "id": {
@@ -62,18 +86,91 @@
         }
       }
     },
-    "review_class": {
-      "type": "string",
-      "enum": [
-        "PROJECT_ADJUDICATED",
-        "EXTERNAL_INDEPENDENT",
-        "MULTI_PARTY_REVIEWED"
-      ]
+    "review_provenance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "review_class",
+        "reviewers"
+      ],
+      "properties": {
+        "review_class": {
+          "type": "string",
+          "enum": [
+            "PROJECT_ADJUDICATED",
+            "EXTERNAL_INDEPENDENT",
+            "MULTI_PARTY_REVIEWED"
+          ]
+        },
+        "reviewers": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "identifier",
+              "relationship"
+            ],
+            "properties": {
+              "identifier": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 200
+              },
+              "relationship": {
+                "type": "string",
+                "enum": [
+                  "PROJECT",
+                  "EXTERNAL"
+                ]
+              }
+            }
+          }
+        },
+        "independence_basis": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 4000
+        }
+      }
+    },
+    "decision_authority": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "class",
+        "actor",
+        "authority_basis",
+        "decided_at"
+      ],
+      "properties": {
+        "class": {
+          "const": "PROJECT_MAINTAINER"
+        },
+        "actor": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200
+        },
+        "authority_basis": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 500
+        },
+        "decided_at": {
+          "type": "string",
+          "minLength": 20,
+          "maxLength": 32
+        }
+      }
     },
     "disposition": {
       "type": "string",
       "enum": [
         "CONFIRMED_FALSIFICATION",
+        "CONFIRMED_CONTRACT_GAP",
         "REJECTED_OUT_OF_SCOPE",
         "INSUFFICIENT_EVIDENCE",
         "NOT_CONFIRMED"
@@ -99,7 +196,7 @@
           "items": {
             "type": "string",
             "minLength": 1,
-            "maxLength": 240
+            "maxLength": 500
           }
         },
         "evidence_references": {
@@ -108,7 +205,7 @@
           "items": {
             "type": "string",
             "minLength": 1,
-            "maxLength": 240
+            "maxLength": 500
           }
         },
         "missing_evidence_statement": {
@@ -117,6 +214,11 @@
           "maxLength": 4000
         },
         "falsification_analysis": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 8000
+        },
+        "contract_gap_analysis": {
           "type": "string",
           "minLength": 1,
           "maxLength": 8000

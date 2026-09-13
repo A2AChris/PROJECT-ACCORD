@@ -2,19 +2,17 @@
 
 This directory is the public registry for completed substantive challenge adjudications.
 
-The mechanical challenge harness does not write records here and does not decide truth,
-scope, evidence sufficiency, or falsification.
+The governing contract is `../ADJUDICATION-CONTRACT.md`. Public challenge receipt and
+pending visibility are governed separately by `../LIFECYCLE-CONTRACT.md` and
+`../receipts/`.
 
-The governing contract is
-[`../ADJUDICATION-CONTRACT.md`](../ADJUDICATION-CONTRACT.md).
+`index.json` lists immutable adjudication-record paths. An empty list means that no
+completed public adjudication record is currently registered; pending public challenges
+are visible through the receipt registry instead.
 
-`index.json` lists public adjudication record paths. An empty list means that no completed
-public adjudication record is currently registered; it does not mean that no challenge
-has ever been discussed, submitted privately, or remains under review.
+A later correction creates a new record that names the earlier adjudication in
+`supersedes`. Earlier records are not silently deleted or rewritten.
 
-Record files, when present, live under `records/` and conform to
-[`adjudication-record.schema.json`](adjudication-record.schema.json).
-
-The registry contains only public governance material. It is not a disclosure channel for
-private implementation, private CI, private tests, private red-team material, or private
-reference-opening material.
+The registry contains public governance material only. It is not a disclosure channel for
+private implementation, CI, tests, red-team material, or private reference-opening
+material.
