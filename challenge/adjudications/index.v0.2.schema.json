@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://project-accord.example/schema/challenge-adjudication-index.v0.3.json",
+  "$id": "https://project-accord.example/schema/challenge-adjudication-index.v0.2.json",
   "title": "PROJECT ACCORD public challenge adjudication index",
   "type": "object",
   "additionalProperties": false,
@@ -11,10 +11,10 @@
   ],
   "properties": {
     "schema": {
-      "const": "accord.challenge-adjudication-index.v0.3"
+      "const": "accord.challenge-adjudication-index.v0.2"
     },
     "contract_revision": {
-      "const": "v0.3"
+      "const": "v0.2"
     },
     "records": {
       "type": "array",

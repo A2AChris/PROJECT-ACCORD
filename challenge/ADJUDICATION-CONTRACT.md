@@ -1,7 +1,7 @@
 # PROJECT ACCORD — Public Challenge Adjudication Contract
 
 **Status:** Public-surface challenge adjudication contract
-**Revision:** `v0.2`
+**Revision:** `v0.3`
 
 ## Purpose
 
@@ -33,7 +33,7 @@ A reviewer may supply analysis without possessing authority to change public cla
 The project maintainer may possess publication authority without that fact creating an
 independence claim.
 
-For revision `v0.2`, the only decision-authority class permitted to register a final
+For revision `v0.3`, the only decision-authority class permitted to register a final
 public adjudication is:
 
 - `PROJECT_MAINTAINER`
@@ -74,6 +74,32 @@ must not be promoted into a stronger evidence claim without separate support.
 
 Review class is provenance only and does not raise the implementation evidence or
 reproduction level.
+
+## Reviewer positions and dissent preservation
+
+Each reviewer record must preserve that reviewer's own substantive position, rationale,
+and any public evidence references used for that position.
+
+Allowed reviewer positions are the five final disposition labels plus `ABSTAIN`.
+`ABSTAIN` means the reviewer supplied no substantive disposition and is not treated as a
+dissenting position.
+
+A reviewer position is **not** decision authority. It does not itself change claim state,
+confirm a falsification, or bind the project maintainer. Final publication authority
+remains the `PROJECT_MAINTAINER` authority defined above.
+
+If a non-abstaining reviewer position differs from the final disposition, the final
+record must preserve that disagreement and include a non-empty maintainer response bound
+to that exact reviewer identifier. Every dissenting reviewer must have exactly one such
+response, and a response must not be recorded for an aligned or abstaining reviewer.
+
+This means an adjudication may still end with a maintainer disposition that differs from
+an independent reviewer's position, but the public record must not collapse or erase the
+dissent while continuing to advertise the external review provenance.
+
+Reviewer positions use the same challenge-type boundary as final dispositions:
+`CONFIRMED_FALSIFICATION` is meaningful only for a `REGISTERED_FALSIFICATION`, and
+`CONFIRMED_CONTRACT_GAP` only for a `NOVEL_FALSIFICATION_HYPOTHESIS`.
 
 ## Substantive dispositions
 
@@ -148,6 +174,9 @@ registered falsification surface was insufficient.
 
 `NOT_CONFIRMED` requires falsification analysis.
 
+Any reviewer/final-disposition divergence additionally requires the reviewer-specific
+dissent response described above.
+
 None of these dispositions may be represented as proof of universal correctness, safety,
 or absence of unknown defects.
 
@@ -166,8 +195,9 @@ justify a decision.
 
 ## Machine-checkable governance
 
-`adjudication.py` validates lifecycle binding, authority/provenance structure,
-adjudication identity, supersession, conflict freedom, and claim consequences.
+`adjudication.py` validates lifecycle binding, authority/provenance structure, reviewer
+position preservation, reviewer-specific dissent responses, adjudication identity,
+supersession, conflict freedom, and claim consequences.
 
 It does not decide whether the substantive challenge is true and performs no private
 reference verification.
