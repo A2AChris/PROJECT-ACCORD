@@ -144,9 +144,9 @@ def claim_index_path() -> Path:
 
 def load_claim_index() -> dict[str, Any]:
     doc, _ = load_json_file(claim_index_path())
-    _require(doc.get("schema") == "accord.public-claim-index.v0.2",
+    _require(doc.get("schema") == "accord.public-claim-index.v0.3",
              "unsupported public claim index schema")
-    _require(doc.get("contract_revision") == "v0.2",
+    _require(doc.get("contract_revision") == "v0.3",
              "unexpected public claim contract revision")
     claims = doc.get("claims")
     _require(isinstance(claims, dict) and claims, "public claim index has no claims")
