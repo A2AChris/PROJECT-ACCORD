@@ -3,7 +3,7 @@
   "challenge_id": "ACCORD-C05-lineage-ambiguity",
   "claim": {
     "id": "ACCORD-C05",
-    "revision": "v0.2",
+    "revision": "v0.3",
     "falsification_id": "C05-F4"
   },
   "attack": {
