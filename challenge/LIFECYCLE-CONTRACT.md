@@ -32,8 +32,15 @@ and must not be forced into the public receipt registry.
 
 ## Public receipt
 
-A mechanically processable public challenge may be entered in
-`challenge/receipts/index.json`.
+The public GitHub issue is itself an externally visible intake artifact. Once PROJECT
+ACCORD acknowledges a public intake as mechanically valid or places it under substantive
+review, that challenge **must** be represented in `challenge/receipts/index.json` before
+a completed substantive disposition may be published for it.
+
+A project decision not to register or review an intake is not an adjudication and must
+not be represented as `INVALID_SUBMISSION`, `NOT_CONFIRMED`, or another substantive
+disposition. The public issue remains independently observable even before project
+acknowledgement.
 
 A receipt records:
 

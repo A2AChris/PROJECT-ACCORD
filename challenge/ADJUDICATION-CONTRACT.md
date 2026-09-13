@@ -41,6 +41,16 @@ public adjudication is:
 Every final record must identify the public decision actor, the authority basis, and the
 decision timestamp.
 
+The machine-checkable authority basis for this contract revision is exactly:
+
+```text
+challenge/ADJUDICATION-CONTRACT.md#decision-authority-versus-review-provenance
+```
+
+This prevents an arbitrary non-empty string from masquerading as a public authority
+basis. The actor field identifies the project-asserted decision actor; it is not by itself
+a cryptographic identity proof.
+
 This is intentionally centralized and explicit. PROJECT ACCORD does not claim an
 independent tribunal.
 
@@ -57,6 +67,10 @@ public independence basis.
 
 `MULTI_PARTY_REVIEWED` requires at least two distinct reviewers. It does not itself claim
 independence.
+
+Reviewer identifiers, relationship labels, and an independence basis are public
+provenance assertions. They are not automatically proof of identity or independence and
+must not be promoted into a stronger evidence claim without separate support.
 
 Review class is provenance only and does not raise the implementation evidence or
 reproduction level.

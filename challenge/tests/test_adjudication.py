@@ -86,9 +86,7 @@ def base_record(
         "decision_authority": {
             "class": "PROJECT_MAINTAINER",
             "actor": "A2AChris",
-            "authority_basis": (
-                "challenge/ADJUDICATION-CONTRACT.md#decision-authority-versus-review-provenance"
-            ),
+            "authority_basis": adj.DECISION_AUTHORITY_BASIS,
             "decided_at": "2026-09-13T17:10:00Z",
         },
         "disposition": disposition,
@@ -212,6 +210,12 @@ class AdjudicationGovernanceTests(unittest.TestCase):
     def test_unsupported_decision_authority_is_rejected(self):
         record = base_record()
         record["decision_authority"]["class"] = "EXTERNAL_TRIBUNAL"
+        with self.assertRaises(adj.AdjudicationError):
+            adj.validate_record(record, self.entries, self.receipts)
+
+    def test_decision_authority_basis_must_match_contract(self):
+        record = base_record()
+        record["decision_authority"]["authority_basis"] = "because-maintainer"
         with self.assertRaises(adj.AdjudicationError):
             adj.validate_record(record, self.entries, self.receipts)
 

@@ -42,6 +42,9 @@ STATE_BY_ACTION = {
     "CLAIM_WITHDRAWN": "WITHDRAWN",
     "CLAIM_SUPERSEDED": "SUPERSEDED",
 }
+DECISION_AUTHORITY_BASIS = (
+    "challenge/ADJUDICATION-CONTRACT.md#decision-authority-versus-review-provenance"
+)
 
 
 class AdjudicationError(ValueError):
@@ -312,9 +315,10 @@ def validate_record(
     if authority["class"] != "PROJECT_MAINTAINER":
         raise AdjudicationError("unsupported decision authority class")
     _require_nonempty_string(authority, "actor", "decision authority actor is required")
-    _require_nonempty_string(
-        authority, "authority_basis", "decision authority basis is required"
-    )
+    if authority.get("authority_basis") != DECISION_AUTHORITY_BASIS:
+        raise AdjudicationError(
+            "decision authority basis must bind to the current public adjudication contract"
+        )
     _parse_timestamp(authority["decided_at"], "decision_authority.decided_at")
 
     disposition = record["disposition"]
