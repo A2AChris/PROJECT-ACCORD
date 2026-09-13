@@ -58,6 +58,21 @@
         "C05-F7",
         "C05-F8"
       ],
+      "publication_state": "SUPERSEDED"
+    },
+    {
+      "id": "ACCORD-C05",
+      "revision": "v0.3",
+      "falsification_ids": [
+        "C05-F1",
+        "C05-F2",
+        "C05-F3",
+        "C05-F4",
+        "C05-F5",
+        "C05-F6",
+        "C05-F7",
+        "C05-F8"
+      ],
       "publication_state": "PUBLISHED"
     }
   ]
