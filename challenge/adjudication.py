@@ -21,6 +21,7 @@ FINAL_DISPOSITIONS = {
     "INSUFFICIENT_EVIDENCE",
     "NOT_CONFIRMED",
 }
+REVIEW_POSITIONS = FINAL_DISPOSITIONS | {"ABSTAIN"}
 REVIEW_CLASSES = {
     "PROJECT_ADJUDICATED",
     "EXTERNAL_INDEPENDENT",
@@ -223,12 +224,90 @@ def _binding(record: dict[str, Any]) -> tuple[str, str, str, str, str | None]:
     )
 
 
+def _validate_reviewer_positions(
+    provenance: dict[str, Any],
+    challenge_type: str,
+) -> list[dict[str, Any]]:
+    reviewers = provenance["reviewers"]
+    identifiers = [r["identifier"] for r in reviewers]
+    if not identifiers or len(identifiers) != len(set(identifiers)):
+        raise AdjudicationError("reviewers must be non-empty and uniquely identified")
+
+    for reviewer in reviewers:
+        position = reviewer.get("position")
+        if position not in REVIEW_POSITIONS:
+            raise AdjudicationError(
+                f"unsupported reviewer position for {reviewer['identifier']}: {position}"
+            )
+        _require_nonempty_string(
+            reviewer,
+            "rationale",
+            f"reviewer {reviewer['identifier']} requires rationale",
+        )
+        evidence_refs = reviewer.get("evidence_references")
+        if not isinstance(evidence_refs, list):
+            raise AdjudicationError(
+                f"reviewer {reviewer['identifier']} requires evidence_references list"
+            )
+        if len(evidence_refs) != len(set(evidence_refs)):
+            raise AdjudicationError(
+                f"reviewer {reviewer['identifier']} evidence_references must be unique"
+            )
+        if position == "CONFIRMED_FALSIFICATION" and challenge_type != "REGISTERED_FALSIFICATION":
+            raise AdjudicationError(
+                "reviewer CONFIRMED_FALSIFICATION position requires REGISTERED_FALSIFICATION"
+            )
+        if position == "CONFIRMED_CONTRACT_GAP" and challenge_type != "NOVEL_FALSIFICATION_HYPOTHESIS":
+            raise AdjudicationError(
+                "reviewer CONFIRMED_CONTRACT_GAP position requires NOVEL_FALSIFICATION_HYPOTHESIS"
+            )
+    return reviewers
+
+
+def _validate_dissent_responses(
+    detail: dict[str, Any],
+    reviewers: list[dict[str, Any]],
+    disposition: str,
+) -> None:
+    dissenters = {
+        reviewer["identifier"]
+        for reviewer in reviewers
+        if reviewer["position"] != "ABSTAIN"
+        and reviewer["position"] != disposition
+    }
+    responses = detail.get("dissent_responses")
+    if not isinstance(responses, list):
+        raise AdjudicationError("decision_detail requires dissent_responses list")
+
+    response_ids: list[str] = []
+    for response in responses:
+        if not isinstance(response, dict):
+            raise AdjudicationError("dissent response must be an object")
+        reviewer_id = response.get("reviewer_identifier")
+        if not isinstance(reviewer_id, str) or not reviewer_id.strip():
+            raise AdjudicationError("dissent response requires reviewer_identifier")
+        _require_nonempty_string(
+            response,
+            "response",
+            f"dissent response for {reviewer_id} must be non-empty",
+        )
+        response_ids.append(reviewer_id)
+
+    if len(response_ids) != len(set(response_ids)):
+        raise AdjudicationError("duplicate dissent response reviewer identifier")
+    if set(response_ids) != dissenters:
+        raise AdjudicationError(
+            "dissent responses must bind exactly to non-abstaining reviewers "
+            "whose position differs from the final disposition"
+        )
+
+
 def validate_record(
     record: dict[str, Any],
     entries: dict[tuple[str, str], dict[str, Any]],
     receipts: dict[str, dict[str, Any]],
 ) -> None:
-    if record.get("schema") != "accord.challenge-adjudication-record.v0.2":
+    if record.get("schema") != "accord.challenge-adjudication-record.v0.3":
         raise AdjudicationError("unsupported adjudication record schema")
 
     challenge = record["challenge"]
@@ -292,12 +371,9 @@ def validate_record(
 
     provenance = record["review_provenance"]
     review_class = provenance["review_class"]
-    reviewers = provenance["reviewers"]
     if review_class not in REVIEW_CLASSES:
         raise AdjudicationError(f"unsupported review class: {review_class}")
-    identifiers = [r["identifier"] for r in reviewers]
-    if not identifiers or len(identifiers) != len(set(identifiers)):
-        raise AdjudicationError("reviewers must be non-empty and uniquely identified")
+    reviewers = _validate_reviewer_positions(provenance, challenge_type)
     if review_class == "EXTERNAL_INDEPENDENT":
         if not any(r["relationship"] == "EXTERNAL" for r in reviewers):
             raise AdjudicationError(
@@ -335,6 +411,7 @@ def validate_record(
 
     detail = record["decision_detail"]
     _require_nonempty_string(detail, "basis", "adjudication basis must be non-empty")
+    _validate_dissent_responses(detail, reviewers, disposition)
     consequence = record.get("consequence")
 
     if disposition in {"CONFIRMED_FALSIFICATION", "CONFIRMED_CONTRACT_GAP"}:
@@ -496,8 +573,10 @@ def validate_repository(root: Path = ROOT) -> tuple[int, int, int]:
     entries = validate_state_registry(claim_index, state_registry)
     receipts = validate_receipts(receipt_index, entries)
 
-    if adjudication_index.get("schema") != "accord.challenge-adjudication-index.v0.2":
+    if adjudication_index.get("schema") != "accord.challenge-adjudication-index.v0.3":
         raise AdjudicationError("unsupported adjudication index schema")
+    if adjudication_index.get("contract_revision") != "v0.3":
+        raise AdjudicationError("unsupported adjudication contract revision")
 
     records: list[dict[str, Any]] = []
     seen_paths: set[str] = set()
