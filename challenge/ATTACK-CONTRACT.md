@@ -121,9 +121,11 @@ treatment. An external observer's inability to rule out that possibility is not,
 itself, evidence that the condition occurred.
 
 This distinction does not prevent a submitter from making the allegation. A mechanically
-well-formed submission remains a submission with `judgment = NOT_PERFORMED`; substantive
-review may still conclude that evidence is insufficient, that the condition is not
-confirmed, or that a separate contract gap exists.
+well-formed registered-falsification submission remains a submission with
+`judgment = NOT_PERFORMED`; substantive review may still find its evidence insufficient
+or decline to confirm the registered condition. If the allegation is instead that no
+registered falsification ID faithfully expresses the mechanism, that is the separate
+`NOVEL_FALSIFICATION_HYPOTHESIS` lifecycle path.
 
 ## Security boundary
 
