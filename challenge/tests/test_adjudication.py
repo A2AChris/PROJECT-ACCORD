@@ -233,6 +233,12 @@ class AdjudicationGovernanceTests(unittest.TestCase):
         with self.assertRaises(adj.AdjudicationError):
             adj.validate_record(record, self.entries, self.receipts)
 
+    def test_invalid_reviewer_relationship_is_rejected(self):
+        record = base_record()
+        record["review_provenance"]["reviewers"][0]["relationship"] = "UNKNOWN"
+        with self.assertRaises(adj.AdjudicationError):
+            adj.validate_record(record, self.entries, self.receipts)
+
     def test_reviewer_position_requires_rationale(self):
         record = base_record()
         del record["review_provenance"]["reviewers"][0]["rationale"]
