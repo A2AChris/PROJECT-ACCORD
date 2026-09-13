@@ -145,6 +145,24 @@ class SemanticDependencyGuardTests(unittest.TestCase):
         )
         self.assertEqual(active, 0)
 
+    def test_cyclic_semantic_dependency_registry_is_rejected(self):
+        registry = copy.deepcopy(DEPENDENCY_REGISTRY)
+        registry["bindings"].append(
+            {
+                "dependent_claim": {"id": "ACCORD-C03", "revision": "v0.2"},
+                "dependency_claims": [
+                    {
+                        "id": "ACCORD-C05",
+                        "revision": "v0.3",
+                        "relation": "SEMANTIC_INTERPRETATION",
+                        "public_rule_reference": "test:cycle",
+                    }
+                ],
+            }
+        )
+        with self.assertRaises(guard.DependencyGuardError):
+            guard.validate_dependency_registry(registry, CLAIM_INDEX, entries())
+
 
 if __name__ == "__main__":
     unittest.main()
