@@ -55,6 +55,7 @@ def load_json(path: Path) -> Any:
         raise AdjudicationError(f"{path}: {exc}") from exc
 
 
+
 def canonical_json_sha256(path: Path) -> str:
     document = load_json(path)
     canonical = json.dumps(
