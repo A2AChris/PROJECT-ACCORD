@@ -52,10 +52,11 @@ Use this address instead of a public issue, fixture, pull request, or discussion
 report contains sensitive material or would create avoidable harm if disclosed before
 review.
 
-GitHub repository-native private vulnerability reporting is intended as an additional
-channel once the repository is public and GitHub makes that facility available for the
-repository. The email channel above remains valid independently of that platform
-feature.
+GitHub repository-native private vulnerability reporting may be used as an additional
+channel if GitHub makes that facility available and it is enabled for this repository.
+Its availability is a repository setting, not a condition of repository public status or
+of the email channel above. The email channel remains valid independently of that
+platform feature.
 
 Do not include credentials, unrelated personal data, bulk private datasets, or material
 obtained through unauthorized access merely to demonstrate a report. Minimize sensitive

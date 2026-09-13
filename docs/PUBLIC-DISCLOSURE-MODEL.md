@@ -116,6 +116,12 @@ requires.
 
 ## Reproduction levels
 
+`R0`, `R1`, and `R2` are **PROJECT ACCORD-specific public evidence/reproduction
+classifications**. They are project-local vocabulary, not an external standard,
+certification, assurance rating, industry maturity level, or third-party endorsement.
+They describe only the public evidence/reproduction posture defined below and must not be
+read as a general safety or production-readiness score.
+
 ### R0 — PROJECT-ATTESTED
 
 The project identifies a bounded evidence statement and commits to a private reference,
