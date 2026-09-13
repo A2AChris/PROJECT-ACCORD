@@ -77,13 +77,24 @@ See [`evidence/`](evidence/).
 
 The clean-room challenge format is under [`challenge/`](challenge/).
 
-Every challenge binds to:
+A standard registered-falsification challenge binds to:
 
 - one claim;
 - one claim revision; and
 - one published falsification ID.
 
-A successful harness run means only:
+A separate `NOVEL_FALSIFICATION_HYPOTHESIS` lifecycle path exists for a plausible claim
+contradiction that no currently published falsification ID can faithfully express. That
+path challenges the completeness of the public falsification surface; it does not let the
+submitter invent a new normative condition.
+
+The canonical public intake for a non-sensitive research challenge is a GitHub Issue in
+this repository whose title begins with `[ACCORD CHALLENGE]`. Public receipt and pending
+status are governed by [`challenge/LIFECYCLE-CONTRACT.md`](challenge/LIFECYCLE-CONTRACT.md)
+and [`challenge/receipts/`](challenge/receipts/). No fixed substantive-decision SLA is
+claimed; receipt and status-change timestamps make unresolved age externally observable.
+
+A successful standard harness run means only:
 
 ```text
 status = WELL_FORMED_CHALLENGE_SUBMISSION
@@ -99,10 +110,12 @@ be used to challenge a claim.
 
 Completed substantive challenge decisions are governed by
 [`challenge/ADJUDICATION-CONTRACT.md`](challenge/ADJUDICATION-CONTRACT.md) and registered
-under [`challenge/adjudications/`](challenge/adjudications/). Mechanical validation,
-substantive adjudication, and claim publication state remain distinct. A
-`CONFIRMED_FALSIFICATION` requires a public consequence for the affected claim revision;
-the same affected revision must not remain `PUBLISHED`.
+under [`challenge/adjudications/`](challenge/adjudications/). Review provenance and final
+decision authority are distinct. The current final decision-authority class is explicitly
+`PROJECT_MAINTAINER`; PROJECT ACCORD does not claim an independent tribunal. Corrections
+create superseding records rather than silently rewriting prior adjudications. A
+`CONFIRMED_FALSIFICATION` or `CONFIRMED_CONTRACT_GAP` requires a public consequence for
+the affected claim revision; the same affected revision must not remain `PUBLISHED`.
 
 ## Reproduction levels
 
@@ -163,7 +176,9 @@ PROJECT-ACCORD/
 ├── docs/
 ├── challenge/
 │   ├── ATTACK-CONTRACT.md
+│   ├── LIFECYCLE-CONTRACT.md
 │   ├── ADJUDICATION-CONTRACT.md
+│   ├── receipts/
 │   └── adjudications/
 ├── evidence/
 └── tests/
@@ -249,13 +264,27 @@ Siehe [`evidence/`](evidence/).
 
 Das Clean-Room-Challenge-Format liegt unter [`challenge/`](challenge/).
 
-Jede Challenge bindet an:
+Eine standardisierte Registered-Falsification-Challenge bindet an:
 
 - einen Claim;
 - eine Claim Revision; und
 - eine veröffentlichte Falsification ID.
 
-Ein erfolgreicher Harness-Lauf bedeutet ausschließlich:
+Für einen plausiblen Claim-Widerspruch, der durch keine bestehende Falsification ID
+sauber ausdrückbar ist, gibt es zusätzlich den Lifecycle-Pfad
+`NOVEL_FALSIFICATION_HYPOTHESIS`. Dieser greift die Vollständigkeit der öffentlichen
+Falsification Surface an; der Einreicher darf dadurch keine neue normative Bedingung
+selbst erfinden.
+
+Der kanonische öffentliche Intake für nicht-sensitive Research Challenges ist ein
+GitHub Issue in diesem Repository, dessen Titel mit `[ACCORD CHALLENGE]` beginnt. Public
+Receipt und Pending Status werden durch
+[`challenge/LIFECYCLE-CONTRACT.md`](challenge/LIFECYCLE-CONTRACT.md) und
+[`challenge/receipts/`](challenge/receipts/) geregelt. Es wird keine feste
+Adjudication-SLA behauptet; Receipt- und Status-Zeitstempel machen das Alter offener
+Challenges extern sichtbar.
+
+Ein erfolgreicher Standard-Harness-Lauf bedeutet ausschließlich:
 
 ```text
 status = WELL_FORMED_CHALLENGE_SUBMISSION
@@ -271,10 +300,13 @@ Mechanismus ein Claim angegriffen werden darf.
 
 Abgeschlossene inhaltliche Challenge-Entscheidungen werden durch
 [`challenge/ADJUDICATION-CONTRACT.md`](challenge/ADJUDICATION-CONTRACT.md) geregelt und
-unter [`challenge/adjudications/`](challenge/adjudications/) registriert. Mechanische
-Validierung, inhaltliche Adjudication und der Publication State eines Claims bleiben
-getrennt. Eine `CONFIRMED_FALSIFICATION` erfordert eine öffentliche Konsequenz für die
-betroffene Claim Revision; dieselbe betroffene Revision darf nicht `PUBLISHED` bleiben.
+unter [`challenge/adjudications/`](challenge/adjudications/) registriert. Review
+Provenance und finale Decision Authority bleiben getrennt. Die aktuelle finale
+Authority-Klasse ist ausdrücklich `PROJECT_MAINTAINER`; PROJECT ACCORD behauptet kein
+unabhängiges Tribunal. Korrekturen erzeugen superseding Records, statt frühere
+Adjudications still umzuschreiben. Eine `CONFIRMED_FALSIFICATION` oder ein
+`CONFIRMED_CONTRACT_GAP` erfordert eine öffentliche Konsequenz für die betroffene Claim
+Revision; dieselbe betroffene Revision darf nicht `PUBLISHED` bleiben.
 
 ## Reproduction Levels
 
@@ -335,7 +367,9 @@ PROJECT-ACCORD/
 ├── docs/
 ├── challenge/
 │   ├── ATTACK-CONTRACT.md
+│   ├── LIFECYCLE-CONTRACT.md
 │   ├── ADJUDICATION-CONTRACT.md
+│   ├── receipts/
 │   └── adjudications/
 ├── evidence/
 └── tests/

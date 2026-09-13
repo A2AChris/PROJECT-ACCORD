@@ -1,180 +1,173 @@
 # PROJECT ACCORD — Public Challenge Adjudication Contract
 
 **Status:** Public-surface challenge adjudication contract
-**Revision:** `v0.1`
+**Revision:** `v0.2`
 
 ## Purpose
 
-The public challenge harness establishes mechanical well-formedness only. This contract
-defines the separate public governance step for substantive disposition of a challenge.
+The challenge harness establishes mechanical well-formedness only. The lifecycle contract
+establishes public receipt and process visibility. This contract defines the separate
+governance step for a completed substantive disposition.
 
-It does not turn automation, a maintainer, or a reviewer into a truth oracle. It binds
-substantive decisions to public claim semantics and makes the consequences of a confirmed
-falsification externally inspectable.
+It does not turn automation, a maintainer, or a reviewer into a truth oracle.
 
 ## Separation rule
 
-The following assertion classes are distinct and must not be silently collapsed:
+The following remain distinct:
 
-1. a challenge was submitted;
-2. a challenge is mechanically well formed;
-3. a challenge is under substantive review;
-4. a substantive disposition was recorded; and
-5. a public claim revision changed publication state as a consequence.
+1. submission;
+2. public receipt;
+3. mechanical validity;
+4. substantive review;
+5. final adjudication; and
+6. claim-state consequence.
 
-In particular:
+`WELL_FORMED_CHALLENGE_SUBMISSION` is not admissibility, confirmation, falsification,
+verification, safety, or pass.
 
-> `WELL_FORMED_CHALLENGE_SUBMISSION` is not admissibility, confirmation, falsification,
-> verification, safety, or pass.
+## Decision authority versus review provenance
 
-The existing challenge harness remains mechanically neutral and must continue to emit
-`judgment = NOT_PERFORMED`.
+Review provenance and decision authority are different assertions.
 
-## Substantive dispositions
+A reviewer may supply analysis without possessing authority to change public claim state.
+The project maintainer may possess publication authority without that fact creating an
+independence claim.
 
-A completed public adjudication uses exactly one of these dispositions:
+For revision `v0.2`, the only decision-authority class permitted to register a final
+public adjudication is:
 
-- `CONFIRMED_FALSIFICATION`
-- `REJECTED_OUT_OF_SCOPE`
-- `INSUFFICIENT_EVIDENCE`
-- `NOT_CONFIRMED`
+- `PROJECT_MAINTAINER`
 
-`UNDER_REVIEW` is a process state, not a completed substantive disposition.
+Every final record must identify the public decision actor, the authority basis, and the
+decision timestamp.
 
-### `CONFIRMED_FALSIFICATION`
+The machine-checkable authority basis for this contract revision is exactly:
 
-The adjudicator concludes that the bound public falsification condition is satisfied for
-the bound claim revision.
+```text
+challenge/ADJUDICATION-CONTRACT.md#decision-authority-versus-review-provenance
+```
 
-A confirmed falsification requires public evidence references and a falsification analysis.
-It also requires an immediate claim consequence under the rule below.
+This prevents an arbitrary non-empty string from masquerading as a public authority
+basis. The actor field identifies the project-asserted decision actor; it is not by itself
+a cryptographic identity proof.
 
-### `REJECTED_OUT_OF_SCOPE`
+This is intentionally centralized and explicit. PROJECT ACCORD does not claim an
+independent tribunal.
 
-The adjudicator concludes that the challenge does not fall within the public subject,
-scope, assumptions, or boundary of the bound claim revision.
+## Review classes
 
-The record must cite the public rule used for that conclusion. A bare label such as
-"out of scope", "inapplicable", or "ambiguous" is insufficient.
-
-### `INSUFFICIENT_EVIDENCE`
-
-The submitted material is insufficient to establish the alleged falsification condition.
-
-The record must identify the material evidence that is missing or unresolved. This
-disposition must not be represented as verification of the claim.
-
-### `NOT_CONFIRMED`
-
-The challenge received substantive review, but the admitted public material does not
-establish the alleged falsification condition.
-
-The record must explain the falsification analysis. This disposition must not be
-represented as verification, proof, or absence of unknown defects.
-
-## Review classification
-
-Every adjudication record declares one review class:
+Every final record declares one review class:
 
 - `PROJECT_ADJUDICATED`
 - `EXTERNAL_INDEPENDENT`
 - `MULTI_PARTY_REVIEWED`
 
-The review class describes provenance of the public adjudication only. It does not change
-the evidence level of the underlying implementation and must not be promoted into a
-stronger independence claim.
+`EXTERNAL_INDEPENDENT` requires at least one identified external reviewer and an explicit
+public independence basis.
+
+`MULTI_PARTY_REVIEWED` requires at least two distinct reviewers. It does not itself claim
+independence.
+
+Reviewer identifiers, relationship labels, and an independence basis are public
+provenance assertions. They are not automatically proof of identity or independence and
+must not be promoted into a stronger evidence claim without separate support.
+
+Review class is provenance only and does not raise the implementation evidence or
+reproduction level.
+
+## Substantive dispositions
+
+Completed adjudications use one of:
+
+- `CONFIRMED_FALSIFICATION`
+- `CONFIRMED_CONTRACT_GAP`
+- `REJECTED_OUT_OF_SCOPE`
+- `INSUFFICIENT_EVIDENCE`
+- `NOT_CONFIRMED`
+
+`CONFIRMED_CONTRACT_GAP` applies only to a `NOVEL_FALSIFICATION_HYPOTHESIS`: the public
+claim is alleged to be contradicted in a way the registered falsification IDs cannot
+faithfully express, and that incompleteness is confirmed.
 
 ## Claim-state consequence rule
 
-Public claim publication state is tracked separately from evidence status in
-[`../claims/public-claim-state.json`](../claims/public-claim-state.json).
-
-The allowed publication states are:
-
-- `PUBLISHED`
-- `SUSPENDED`
-- `WITHDRAWN`
-- `SUPERSEDED`
-
-Publication state is not a truth value and is not an evidence level.
-
-A `CONFIRMED_FALSIFICATION` must bind to exactly one consequence for the affected claim
-revision:
+`CONFIRMED_FALSIFICATION` and `CONFIRMED_CONTRACT_GAP` require exactly one public claim
+consequence:
 
 - `CLAIM_SUSPENDED`
 - `CLAIM_WITHDRAWN`
 - `CLAIM_SUPERSEDED`
 
-The public state registry must reflect that consequence.
+The affected revision must not remain `PUBLISHED`.
 
-The governing invariant is:
+For `CLAIM_SUPERSEDED`, the replacement revision must be named and publicly registered.
 
-> **A confirmed falsification must not coexist with the same affected claim revision
-> remaining `PUBLISHED`.**
+A non-confirmed disposition must not carry a claim consequence.
 
-For `CLAIM_SUPERSEDED`, the replacement revision must be named and must itself have a
-public state entry.
+## Public versus confidential challenge material
 
-A challenge may remain unresolved while substantive review continues. It must not be
-closed as confirmed without the corresponding claim-state consequence.
+Every final record declares challenge visibility:
 
-## Decision binding
+- `PUBLIC`
+- `CONFIDENTIAL_SECURITY`
 
-Every public adjudication record binds to:
+A `PUBLIC` adjudication must bind to a public receipt and public locator.
 
-- one adjudication ID;
-- one canonical SHA-256 of the challenge material;
-- one public claim ID;
-- one claim revision;
-- one published falsification ID;
-- one review class;
-- one substantive disposition;
-- a public rationale and rule/evidence references appropriate to that disposition; and
-- when confirmed, one claim consequence.
+A `CONFIDENTIAL_SECURITY` adjudication may bind only to a canonical digest and a
+minimized public rationale. Sensitive source material is not made public merely to
+support governance bookkeeping.
 
-If a public challenge artifact is retained in this repository, the record may also name
-its public path. The canonical SHA-256 remains the binding identifier.
+## Final-decision identity and correction
 
-## Founder / maintainer authority boundary
+Adjudication IDs are globally unique in the public registry.
 
-PROJECT ACCORD may currently issue `PROJECT_ADJUDICATED` decisions. That classification
-does not claim independence.
+For one exact adjudication binding there may be only one active terminal final decision.
 
-Project control over repository maintenance does not authorize silent removal of the
-consequence rule. A confirmed falsification recorded under this contract requires the
-public claim-state transition defined above.
+A later correction must not delete or silently rewrite the earlier decision. It creates a
+new adjudication record with `supersedes` pointing to the previous adjudication ID.
 
-Rejection remains possible, but it must be represented as a rejection with public
-rationale rather than as disappearance of the challenge.
+Supersession must preserve the exact challenge and claim binding. Forked or cyclic
+supersession is invalid.
+
+The active final decision is the terminal record in the supersession chain.
+
+A claim revision that was suspended, withdrawn, or superseded after a confirmed
+falsification is not silently restored by deleting history. Any later publication uses an
+explicit public revision/state transition.
+
+## Decision detail requirements
+
+`CONFIRMED_FALSIFICATION` requires public evidence references and falsification analysis.
+
+`CONFIRMED_CONTRACT_GAP` requires public evidence references and analysis of why the
+registered falsification surface was insufficient.
+
+`REJECTED_OUT_OF_SCOPE` requires public rule references.
+
+`INSUFFICIENT_EVIDENCE` requires a missing-evidence statement.
+
+`NOT_CONFIRMED` requires falsification analysis.
+
+None of these dispositions may be represented as proof of universal correctness, safety,
+or absence of unknown defects.
 
 ## No evidence inheritance
 
-Adjudication of a challenge does not create implementation evidence for unrelated claims.
+Adjudication does not create implementation evidence for unrelated claims.
 
-Likewise, a rejected or unconfirmed challenge does not raise a claim's R0/R1/R2 evidence
-or reproduction level.
+A rejected or unconfirmed challenge does not raise R0/R1/R2.
 
 ## Disclosure boundary
 
-Adjudication records must use only the public semantic surface necessary to evaluate the
-challenge.
-
-They must not disclose private repository identifiers, private commits, private CI/job
-identifiers, private tests, private red-team material, private architecture, private data
-or identity representation, or private implementation mechanisms merely to justify a
-decision.
+Records use only the public semantic material needed to explain the disposition. They do
+not disclose private repositories, commits, CI/job identifiers, private tests, private
+red-team material, private architecture, or private identity representation merely to
+justify a decision.
 
 ## Machine-checkable governance
 
-[`adjudication.py`](adjudication.py) checks public governance invariants only. It does not
-decide whether a challenge is true.
+`adjudication.py` validates lifecycle binding, authority/provenance structure,
+adjudication identity, supersession, conflict freedom, and claim consequences.
 
-In particular it checks:
-
-- claim/revision/falsification binding against the public revision-state registry;
-- consistency between the current claim index and revision-state registry;
-- disposition-specific rationale requirements;
-- prohibition of a consequence on a non-confirmed disposition; and
-- mandatory non-`PUBLISHED` state after a `CONFIRMED_FALSIFICATION`.
-
-The checker intentionally reports no private-reference verification.
+It does not decide whether the substantive challenge is true and performs no private
+reference verification.

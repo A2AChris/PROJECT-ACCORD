@@ -26,6 +26,10 @@ class PublicSchemaContractTests(unittest.TestCase):
                 ROOT / "challenge" / "fixtures" / "fixture.schema.json",
             ),
             (
+                ROOT / "challenge" / "receipts" / "index.json",
+                ROOT / "challenge" / "receipts" / "index.schema.json",
+            ),
+            (
                 ROOT / "challenge" / "adjudications" / "index.json",
                 ROOT / "challenge" / "adjudications" / "index.schema.json",
             ),

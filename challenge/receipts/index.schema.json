@@ -1,0 +1,122 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://project-accord.example/schema/challenge-receipt-index.v0.1.json",
+  "title": "PROJECT ACCORD public challenge receipt index",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "contract_revision",
+    "records"
+  ],
+  "properties": {
+    "schema": {
+      "const": "accord.challenge-receipt-index.v0.1"
+    },
+    "contract_revision": {
+      "const": "v0.1"
+    },
+    "records": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "receipt_id",
+          "canonical_sha256",
+          "public_locator",
+          "claim",
+          "challenge_type",
+          "status",
+          "received_at",
+          "last_status_change_at"
+        ],
+        "properties": {
+          "receipt_id": {
+            "type": "string",
+            "pattern": "^ACCORD-RCP-[A-Z0-9][A-Z0-9._-]{2,63}$"
+          },
+          "canonical_sha256": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$"
+          },
+          "public_locator": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 500
+          },
+          "claim": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "id",
+              "revision"
+            ],
+            "properties": {
+              "id": {
+                "type": "string",
+                "pattern": "^ACCORD-C[0-9]{2}$"
+              },
+              "revision": {
+                "type": "string",
+                "pattern": "^v[0-9]+\\.[0-9]+$"
+              },
+              "falsification_id": {
+                "type": "string",
+                "pattern": "^C[0-9]{2}-F[1-9][0-9]*$"
+              }
+            }
+          },
+          "challenge_type": {
+            "type": "string",
+            "enum": [
+              "REGISTERED_FALSIFICATION",
+              "NOVEL_FALSIFICATION_HYPOTHESIS"
+            ]
+          },
+          "novel_hypothesis": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "alleged_claim_contradiction",
+              "reason_no_registered_falsification_id_applies"
+            ],
+            "properties": {
+              "alleged_claim_contradiction": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 8000
+              },
+              "reason_no_registered_falsification_id_applies": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 8000
+              }
+            }
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "RECEIVED",
+              "MECHANICALLY_VALID",
+              "UNDER_REVIEW",
+              "COMPLETED",
+              "INVALID_SUBMISSION"
+            ]
+          },
+          "received_at": {
+            "type": "string",
+            "minLength": 20,
+            "maxLength": 32
+          },
+          "last_status_change_at": {
+            "type": "string",
+            "minLength": 20,
+            "maxLength": 32
+          }
+        }
+      }
+    }
+  }
+}
