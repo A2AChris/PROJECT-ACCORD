@@ -102,6 +102,7 @@ def verify_text_and_json() -> None:
 def verify_schema_contracts() -> int:
     claim_schema = ROOT / "claims" / "public-claim-index.schema.json"
     claim_state_schema = ROOT / "claims" / "public-claim-state.schema.json"
+    dependency_schema = ROOT / "claims" / "public-semantic-dependencies.schema.json"
     challenge_schema = ROOT / "challenge" / "fixtures" / "fixture.schema.json"
     adjudication_index_schema = (
         ROOT / "challenge" / "adjudications" / "index.schema.json"
@@ -114,6 +115,10 @@ def verify_schema_contracts() -> int:
     targets = [
         (ROOT / "claims" / "public-claim-index.json", claim_schema),
         (ROOT / "claims" / "public-claim-state.json", claim_state_schema),
+        (
+            ROOT / "claims" / "public-semantic-dependencies.json",
+            dependency_schema,
+        ),
         (ROOT / "challenge" / "fixtures" / "template.json", challenge_schema),
         (
             ROOT / "challenge" / "adjudications" / "index.json",
@@ -233,6 +238,15 @@ def main() -> int:
         fail("public adjudication governance self-check did not pass")
     if "PRIVATE_REFERENCE_VERIFICATION=NOT_PERFORMED" not in adjudication_check:
         fail("adjudication governance check exceeded its declared boundary")
+
+    dependency_check = run_command(
+        [sys.executable, "-B", "-S", "claims/dependency_guard.py"]
+    )
+    print(dependency_check, end="")
+    if "SEMANTIC_DEPENDENCY_GUARD=PASS" not in dependency_check:
+        fail("semantic dependency guard did not pass")
+    if "PRIVATE_REFERENCE_VERIFICATION=NOT_PERFORMED" not in dependency_check:
+        fail("semantic dependency guard exceeded its declared boundary")
 
     self_check = run_command(
         [sys.executable, "-B", "-S", "evidence/verify_record.py"]
