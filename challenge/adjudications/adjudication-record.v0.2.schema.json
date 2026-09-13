@@ -1,0 +1,260 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://project-accord.example/schema/challenge-adjudication-record.v0.2.json",
+  "title": "PROJECT ACCORD public challenge adjudication record",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "adjudication_id",
+    "challenge",
+    "claim",
+    "review_provenance",
+    "decision_authority",
+    "disposition",
+    "decision_detail"
+  ],
+  "properties": {
+    "schema": {
+      "const": "accord.challenge-adjudication-record.v0.2"
+    },
+    "adjudication_id": {
+      "type": "string",
+      "pattern": "^ACCORD-ADJ-[A-Z0-9][A-Z0-9._-]{2,63}$"
+    },
+    "supersedes": {
+      "type": "string",
+      "pattern": "^ACCORD-ADJ-[A-Z0-9][A-Z0-9._-]{2,63}$"
+    },
+    "challenge": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "canonical_sha256",
+        "challenge_type",
+        "visibility"
+      ],
+      "properties": {
+        "canonical_sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "challenge_type": {
+          "type": "string",
+          "enum": [
+            "REGISTERED_FALSIFICATION",
+            "NOVEL_FALSIFICATION_HYPOTHESIS"
+          ]
+        },
+        "visibility": {
+          "type": "string",
+          "enum": [
+            "PUBLIC",
+            "CONFIDENTIAL_SECURITY"
+          ]
+        },
+        "receipt_id": {
+          "type": "string",
+          "pattern": "^ACCORD-RCP-[A-Z0-9][A-Z0-9._-]{2,63}$"
+        },
+        "public_locator": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 500
+        }
+      }
+    },
+    "claim": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "revision"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^ACCORD-C[0-9]{2}$"
+        },
+        "revision": {
+          "type": "string",
+          "pattern": "^v[0-9]+\\.[0-9]+$"
+        },
+        "falsification_id": {
+          "type": "string",
+          "pattern": "^C[0-9]{2}-F[1-9][0-9]*$"
+        }
+      }
+    },
+    "review_provenance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "review_class",
+        "reviewers"
+      ],
+      "properties": {
+        "review_class": {
+          "type": "string",
+          "enum": [
+            "PROJECT_ADJUDICATED",
+            "EXTERNAL_INDEPENDENT",
+            "MULTI_PARTY_REVIEWED"
+          ]
+        },
+        "reviewers": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "identifier",
+              "relationship"
+            ],
+            "properties": {
+              "identifier": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 200
+              },
+              "relationship": {
+                "type": "string",
+                "enum": [
+                  "PROJECT",
+                  "EXTERNAL"
+                ]
+              }
+            }
+          }
+        },
+        "independence_basis": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 4000
+        }
+      }
+    },
+    "decision_authority": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "class",
+        "actor",
+        "authority_basis",
+        "decided_at"
+      ],
+      "properties": {
+        "class": {
+          "const": "PROJECT_MAINTAINER"
+        },
+        "actor": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200
+        },
+        "authority_basis": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 500
+        },
+        "decided_at": {
+          "type": "string",
+          "minLength": 20,
+          "maxLength": 32
+        }
+      }
+    },
+    "disposition": {
+      "type": "string",
+      "enum": [
+        "CONFIRMED_FALSIFICATION",
+        "CONFIRMED_CONTRACT_GAP",
+        "REJECTED_OUT_OF_SCOPE",
+        "INSUFFICIENT_EVIDENCE",
+        "NOT_CONFIRMED"
+      ]
+    },
+    "decision_detail": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "basis",
+        "public_rule_references",
+        "evidence_references"
+      ],
+      "properties": {
+        "basis": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 8000
+        },
+        "public_rule_references": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 500
+          }
+        },
+        "evidence_references": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 500
+          }
+        },
+        "missing_evidence_statement": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 4000
+        },
+        "falsification_analysis": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 8000
+        },
+        "contract_gap_analysis": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 8000
+        }
+      }
+    },
+    "consequence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "action",
+        "claim_id",
+        "claim_revision"
+      ],
+      "properties": {
+        "action": {
+          "type": "string",
+          "enum": [
+            "CLAIM_SUSPENDED",
+            "CLAIM_WITHDRAWN",
+            "CLAIM_SUPERSEDED"
+          ]
+        },
+        "claim_id": {
+          "type": "string",
+          "pattern": "^ACCORD-C[0-9]{2}$"
+        },
+        "claim_revision": {
+          "type": "string",
+          "pattern": "^v[0-9]+\\.[0-9]+$"
+        },
+        "replacement_revision": {
+          "type": "string",
+          "pattern": "^v[0-9]+\\.[0-9]+$"
+        }
+      }
+    }
+  }
+}
