@@ -7,6 +7,7 @@ from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
 CH = HERE.parent
+ROOT = CH.parent
 spec = importlib.util.spec_from_file_location("harness", CH / "harness.py")
 h = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(h)
@@ -110,6 +111,15 @@ class PublicChallengeHarnessP8Tests(unittest.TestCase):
             set(doc["subject"]),
             {"historical_subject", "historical_cutoff"},
         )
+
+    def test_r0_nonverification_is_not_promoted_to_c05_f8(self):
+        attack_contract = (CH / "ATTACK-CONTRACT.md").read_text(encoding="utf-8")
+        evidence_readme = (ROOT / "evidence" / "README.md").read_text(encoding="utf-8")
+        self.assertIn("**Revision:** `v0.5`", attack_contract)
+        self.assertIn("does **not**\nestablish that a registered falsification condition occurred", attack_contract)
+        self.assertIn("actual exclusion, inclusion, or\nreclassification of material evidence", attack_contract)
+        self.assertIn("`REFERENCE_VERIFICATION=NOT_PERFORMED` must not be promoted", evidence_readme)
+        self.assertIn("non-verification and falsification are different propositions", evidence_readme)
 
 
 if __name__ == "__main__":
