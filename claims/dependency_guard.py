@@ -42,6 +42,25 @@ def _state_entries(state_registry: dict[str, Any]) -> dict[tuple[str, str], dict
     return entries
 
 
+def _reject_cycles(graph: dict[tuple[str, str], set[tuple[str, str]]]) -> None:
+    visiting: set[tuple[str, str]] = set()
+    visited: set[tuple[str, str]] = set()
+
+    def visit(node: tuple[str, str]) -> None:
+        if node in visiting:
+            raise DependencyGuardError("cyclic semantic dependency graph")
+        if node in visited:
+            return
+        visiting.add(node)
+        for dependency in graph.get(node, set()):
+            visit(dependency)
+        visiting.remove(node)
+        visited.add(node)
+
+    for node in graph:
+        visit(node)
+
+
 def validate_dependencies(
     dependency_registry: dict[str, Any],
     state_registry: dict[str, Any],
@@ -53,6 +72,7 @@ def validate_dependencies(
 
     entries = _state_entries(state_registry)
     seen: set[tuple[str, str, str, str, str]] = set()
+    graph: dict[tuple[str, str], set[tuple[str, str]]] = {}
 
     for relation in dependency_registry["dependencies"]:
         dependent = relation["dependent"]
@@ -84,6 +104,7 @@ def validate_dependencies(
         if identity in seen:
             raise DependencyGuardError("duplicate semantic dependency relation")
         seen.add(identity)
+        graph.setdefault(dependent_key, set()).add(dependency_key)
 
         dependent_state = entries[dependent_key]["publication_state"]
         dependency_state = entries[dependency_key]["publication_state"]
@@ -94,6 +115,8 @@ def validate_dependencies(
                 f"leaves PUBLISHED: {dependent_key[0]} {dependent_key[1]} depends on "
                 f"{dependency_key[0]} {dependency_key[1]}={dependency_state}"
             )
+
+    _reject_cycles(graph)
 
 
 def validate_repository(root: Path = ROOT) -> None:
