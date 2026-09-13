@@ -33,6 +33,28 @@ def _claim_key(value: dict[str, Any]) -> tuple[str, str]:
     return value["id"], value["revision"]
 
 
+def _reject_dependency_cycles(
+    bindings: list[tuple[tuple[str, str], tuple[tuple[str, str], ...]]],
+) -> None:
+    graph = {dependent: set(requirements) for dependent, requirements in bindings}
+    visiting: set[tuple[str, str]] = set()
+    visited: set[tuple[str, str]] = set()
+
+    def visit(node: tuple[str, str]) -> None:
+        if node in visiting:
+            raise DependencyGuardError("cyclic semantic dependency graph")
+        if node in visited:
+            return
+        visiting.add(node)
+        for dependency in graph.get(node, set()):
+            visit(dependency)
+        visiting.remove(node)
+        visited.add(node)
+
+    for node in graph:
+        visit(node)
+
+
 def validate_dependency_registry(
     registry: dict[str, Any],
     claim_index: dict[str, Any],
@@ -88,6 +110,8 @@ def validate_dependency_registry(
                 f"semantic dependency binding has no dependencies: {dependent[0]} {dependent[1]}"
             )
         normalized.append((dependent, tuple(requirements)))
+
+    _reject_dependency_cycles(normalized)
     return normalized
 
 
