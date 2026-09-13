@@ -1,6 +1,6 @@
 {
   "schema": "accord.public-evidence-record.v0.4",
-  "record_id": "ACCORD-EVIDENCE-RM01-v0.5",
+  "record_id": "ACCORD-EVIDENCE-RM01-v0.6",
   "project": "PROJECT ACCORD",
   "public_reference": {
     "alias": "ACCORD-RM01",
@@ -15,7 +15,7 @@
   "claim_binding": {
     "evidenced_public_claim": {
       "id": "ACCORD-C05",
-      "revision": "v0.2"
+      "revision": "v0.3"
     },
     "semantic_dependencies_not_independently_evidenced": [
       {
@@ -27,12 +27,12 @@
         "revision": "v0.2"
       }
     ],
-    "scope_statement": "This record is project-attested reference evidence for ACCORD-C05 v0.2 only. The listed semantic dependencies constrain interpretation of C05 but are not independently evidenced by this record."
+    "scope_statement": "This record is project-attested reference evidence for ACCORD-C05 v0.3 only. The listed semantic dependencies constrain interpretation of C05 but are not independently evidenced by this record."
   },
   "evidence_classification": {
     "reference_evidence_level": "R0_PROJECT_ATTESTED",
     "public_reproduction_level": "NOT_CLAIMED",
-    "qualification": "This frozen record attests that a structured public challenge contract is included in the PROJECT ACCORD public-surface artifact. It does not attest current repository visibility. R1 — PUBLICLY CHALLENGEABLE applies only while the claim and challenge surface is actually publicly accessible. Repository visibility is an external publication state and must not be inferred from this record alone. The underlying reference implementation and detailed CI evidence remain private. This sanitized record is a project attestation, not independent public reproduction.",
+    "qualification": "This frozen record attests that a structured public challenge contract is included in the PROJECT ACCORD public-surface artifact. It does not itself attest current repository visibility or independently establish that R1 is presently in effect. Under the public claim contract, R1 means structured public challengeability and does not imply public execution access to, simulation of, public trace generation from, or independent reproduction of the private reference implementation. External empirical generation of private-reference traces is not currently claimed. The underlying reference implementation and detailed CI evidence remain private. This sanitized record is a project attestation, not independent public reproduction.",
     "public_challenge_contract": "STRUCTURED_COUNTEREXAMPLE_SURFACE_PRESENT"
   },
   "ci_summary": {
@@ -75,6 +75,7 @@
   ],
   "forbidden_inferences": [
     "The private reference implementation is publicly reproducible.",
+    "R1 implies public execution access to, simulation of, or public trace generation from the private reference implementation.",
     "The private reference identifier can be derived from this record.",
     "The private CI provider or provider-specific run can be independently inspected from this record.",
     "The listed CI profiles are a complete inventory of private CI coverage or map one-for-one to the public validation matrix.",
@@ -97,6 +98,6 @@
   ],
   "integrity": {
     "record_canonicalization": "UTF-8 JSON, sorted keys, separators=(',', ':'), digest field null during hashing",
-    "record_sha256": "38ee75805375d1331b4988ddec8c63a65e678031e6bab268874335a42400f5c0"
+    "record_sha256": "2bf3c9dc389c507fc8c7675f7b3d06454cf99e757037f097fab28cffd18f88a3"
   }
 }
