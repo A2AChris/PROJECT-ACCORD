@@ -1,0 +1,58 @@
+name: ACCORD public challenge
+description: Submit a non-sensitive research challenge against the published PROJECT ACCORD claim surface.
+title: "[ACCORD CHALLENGE] "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use this form only for non-sensitive research challenges.
+
+        Read the [challenge guide](../../challenge/README.md), the [public claims](../../CLAIMS.md), and the [attack contract](../../challenge/ATTACK-CONTRACT.md) before submitting.
+
+        Security-sensitive material must not be posted here. Use the confidential path in [SECURITY.md](../../SECURITY.md).
+
+  - type: dropdown
+    id: challenge_type
+    attributes:
+      label: Challenge type
+      description: Select the existing public lifecycle path that best describes the submission.
+      options:
+        - REGISTERED_FALSIFICATION
+        - NOVEL_FALSIFICATION_HYPOTHESIS
+    validations:
+      required: true
+
+  - type: input
+    id: claim
+    attributes:
+      label: Claim and revision
+      description: Example: ACCORD-C05 v0.3
+      placeholder: ACCORD-Cxx v0.x
+    validations:
+      required: true
+
+  - type: textarea
+    id: alleged_contradiction
+    attributes:
+      label: Alleged contradiction
+      description: State what published claim content you believe is contradicted and why.
+    validations:
+      required: true
+
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Public evidence and reproduction material
+      description: Provide public evidence, counterexample material, fixture references, or reproduction steps. Do not include confidential security-sensitive material.
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: acknowledgements
+    attributes:
+      label: Submission acknowledgements
+      options:
+        - label: I understand that mechanical acceptance or receipt does not mean the challenge is substantively confirmed.
+          required: true
+        - label: I confirm that this issue does not contain confidential security-sensitive material.
+          required: true
